@@ -45,8 +45,7 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public int addAParticipant(Participant participant) {
-        participantDao.addAParticipant(participant);
-        return 0;
+        return participantDao.addAParticipant(participant);
     }
 
     @Override
