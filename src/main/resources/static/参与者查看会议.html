@@ -125,7 +125,6 @@
                 else $('.back-to-top').fadeOut('slow');
             })
             token = localStorage.getItem("token");
-            console.log(typeof (token));
             console.log(token);
             if (token == null || token === "null" || token === "undefined") {
                 console.log("no token");
@@ -143,13 +142,8 @@
                 },
                 success: function (data) {
                     // var listConference = "";
-                    console.log(data);
-                    console.log(typeof data)
-                    data = JSON.parse(data)
-                    console.log(typeof data)
-                    console.log(data['data']['joinConferenceList'])
-
-                    var joinConferenceList = data['data']['joinConferenceList'];
+                    console.log(JSON.stringify(data));
+                    let joinConferenceList = data.data.joinConferenceList;
                     for (let i = 0; i < joinConferenceList.length; i++) {
                         $conferenceId = joinConferenceList[i].conferenceId;
                         console.log($conferenceId)
@@ -183,7 +177,7 @@
                 async: false,
                 url: domain+"/conference/showConferenceById",
                 type: "get",
-                dataType: "text",
+                dataType: "json",
                 data: {
                     'conferenceId':""+$conferenceId
                 },
