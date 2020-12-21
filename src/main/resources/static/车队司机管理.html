@@ -154,5 +154,37 @@
 <script src="js/datatables.responsive.min.js"></script>
 <script src="js/jquery.toast.min.js"></script>
 <script src="js/dashboard-alpha.js"></script>
+
+<script>
+    $(function(){
+        let domain = "http://localhost:8081";
+        getAllFleetDriver();
+        // 车队所有司机
+        function getAllFleetDriver () {
+            $.ajax({
+                async: false,
+                type: "GET",
+                dataType: "json",
+                url: domain+'/driver/getAllFleetDriver',
+                contentType: "application/json",
+                data: {
+                    "fleetId": 1
+                },
+                success: function (jsonData,result) {
+                    if ("success"==result) {
+                        console.log(JSON.stringify(jsonData.data.getAllFleetDriver))
+                    }else {
+                        alert(result.message)
+                        // document.getElementById("resp-error").html = result.message;
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                },
+            });
+        }
+    })
+</script>
+
 </body>
 </html>
