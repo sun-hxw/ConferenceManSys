@@ -34,10 +34,10 @@
                 <div class="content">
                   <form method="post" action="login.html" class="form-validate" id="loginFrom">
                     <div class="form-group">
-                      <input id="login-username" type="text" name="userName" required data-msg="请输入用户名" placeholder="用户名(邮箱/手机号)" class="input-material">
+                      <input id="userName" type="text" name="userName" required data-msg="请输入用户名" placeholder="用户名(邮箱/手机号)" class="input-material">
                     </div>
                     <div class="form-group">
-                      <input id="login-password" type="password" name="passWord" required data-msg="请输入密码" placeholder="密码" class="input-material">
+                      <input id="passWord" type="password" name="passWord" required data-msg="请输入密码" placeholder="密码" class="input-material">
                     </div>
                     <button id="login" type="submit" class="btn btn-primary">登录</button>
                     <small>没有账号?</small><a href="./会务参加者注册.html" class="signup">&nbsp;注册</a>
@@ -58,6 +58,7 @@
     <script src="./assets/login-reg/js/front.js"></script>
     <script>
     	$(function(){
+          let domain = "http://localhost:8081";
     		/*登录*/
     		$("#login").click(function(){
 				console.log("12312312");
@@ -72,7 +73,31 @@
 	    		localStorage.setItem("check1",check1);
 	    		localStorage.setItem("check2",check2);
     		})
-    		
+
+            // 登录
+            function login () {
+              let phone =$("#userName").val();
+              let pass =$("#passWord").val();
+              $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: domain+'/participant/login',
+                contentType: "application/json",
+                data:JSON.stringify({
+                  "participantPhone": phone,
+                  "participantPass": pass
+                }),
+                success: function (jsonData,result) {
+                  console.log("data is :" + result);
+                  if (jsonData["data"]["token"]) {
+                    alert("登录成功");
+                    window.location.href = "参与者主页面.html";
+                  }else {
+                    alert(result.message)
+                  }
+                }
+              });
+            }
     		/*$("#check2").click(function(){
     			var flag=$('#check2').prop('checked');
     			if(flag){

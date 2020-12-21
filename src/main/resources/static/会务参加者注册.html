@@ -224,7 +224,7 @@
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: domain+'/hotel/register',
+                    url: domain+'/participant/register',
                     contentType: "application/json",
                     data:JSON.stringify({
                         "participantName": ""+name,
@@ -239,7 +239,7 @@
                         console.log("data is :" + result);
                         if (jsonData["data"]["token"]) {
                             alert("注册成功");
-                            window.location.href = "酒店主页面.html";
+                            window.location.href = "参与者主页面.html";
                         }else {
                             alert(result.message)
                             document.getElementById("resp-error").html = result.message;
