@@ -182,13 +182,8 @@
                     'conferenceId':""+$conferenceId
                 },
                 success: function (data) {
-
-                    console.log(data);
-                    console.log(typeof data)
-                    data = JSON.parse(data)
-                    console.log(typeof data)
-                    console.log(data['data']['conference'])
-                    conference = data['data']['conference'];
+                    conference = data.data.conference;
+                    console.log(JSON.stringify(conference));
                     var conferenceName = conference.conferenceName;
                     var conferenceLocation = conference.conferenceLocation;
                     var conferenceStart = conference.conferenceStart;
@@ -196,8 +191,8 @@
 
                     var organizerId = conference.organizerId;
 
-                    getOrganizerInfo(organizerId);
-
+                    let organizer = getOrganizerInfo(organizerId);
+                    console.log("organizer="+organizer);
                     var organizerUnit = organizer.organizerUnit;
 
                     listConference += '   <div id= "' + $conferenceId +' " class="col-lg-3" style = "margin: 0px 10px;">' +
@@ -260,20 +255,18 @@
             }
 
             function getOrganizerInfo(organizerId) {
-
+                let organizer;
                 $.ajax({
                     async: false,
-                    url: domain+"/organizer/getOrganizerInfo",
+                    url: domain+"/organizer/getOrganizerInfoById",
                     type: "get",
-                    dataType: "text",
+                    dataType: "json",
                     data: {
                         'organizerId': organizerId,
                     },
                     success: function (data) {
-                        data = JSON.parse(data)
-                        console.log(data['data']['getOrganizerInfo'])
-                        organizer = data['data']['getOrganizerInfo'];
-
+                        console.log(JSON.stringify(data.data.getOrganizerInfoById));
+                        organizer = data.data.getOrganizerInfoById;
                         // if (data["code"] === 200) {
                         //     alert("获取组织者数据成功");
                         // } else {
@@ -284,6 +277,7 @@
                         alert("获取用户数据失败2");
                     },
                 });
+                return organizer;
             }
     </script>
 </head>
