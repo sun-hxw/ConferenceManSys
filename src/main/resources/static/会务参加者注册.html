@@ -323,7 +323,6 @@
                         console.log("jsonData is :" + JSON.stringify(jsonData));
                         if ("success"==result) {
                             localStorage.setItem("token", jsonData.data.token);
-                            alert(jsonData.data.token);
                             window.location.href = "参与者主页面.html";
                         }else {
                             alert(result.message)

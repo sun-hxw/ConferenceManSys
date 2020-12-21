@@ -81,6 +81,7 @@
               let pass =$("#passWord").val();
               if (phone.length <= 0 || pass.length <= 0) {return false;}
               $.ajax({
+                async: false,
                 type: "POST",
                 dataType: "json",
                 url: domain+'/participant/login',
@@ -91,8 +92,9 @@
                 }),
                 success: function (jsonData,result) {
                   console.log("data is :" + result);
-                  if (jsonData["data"]["token"]) {
-                    alert("登录成功");
+                  if ("success"==result) {
+                    localStorage.setItem("token", jsonData.data.token);
+                    alert(23)
                     window.location.href = "参与者主页面.html";
                   }else {
                     alert(result.message)
