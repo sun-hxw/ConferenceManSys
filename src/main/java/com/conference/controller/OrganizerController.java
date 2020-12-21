@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+
 /**
  * @Author: liuCenYu
  * @Date: 2020/12/6 10:41
  **/
-@Controller
+@RestController
+@RequestMapping("/organizer")
 public class OrganizerController {
 
     @Autowired
