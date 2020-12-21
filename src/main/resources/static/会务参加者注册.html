@@ -320,8 +320,7 @@
                     }),
                     success: function (jsonData,result) {
                         console.log("data is :" + result);
-                        if (jsonData["data"]["token"]) {
-                            alert("注册成功");
+                        if ("success"==result) {
                             window.location.href = "参与者主页面.html";
                         }else {
                             alert(result.message)
