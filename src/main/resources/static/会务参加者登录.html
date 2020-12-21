@@ -58,6 +58,7 @@
     <script src="./login-register/js/front.js"></script>
     <script>
     	$(function(){
+          let domain = "http://localhost:8081";
     		/*登录*/
     		$("#login").click(function(){
 				console.log("12312312");
@@ -80,7 +81,7 @@
               $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: domain+'/hotel/login',
+                url: domain+'/participant/login',
                 contentType: "application/json",
                 data:JSON.stringify({
                   "participantPhone": phone,
