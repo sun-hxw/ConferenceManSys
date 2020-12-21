@@ -28,6 +28,26 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
+    <style>
+        .card-box {
+            padding: 40px 30px;
+        }
+        .radio {
+            margin-right: 5px !important;
+        }
+        .radio-sex-box {
+            line-height: 34px !important;
+            display: flex;
+        }
+        .radio-sex {
+            margin: 3px 20px 0 0 !important;
+            line-height: 28px !important;
+            width: 50px;
+            display: flex;
+        }
+    </style>
 </head>
 <body>
 
@@ -86,7 +106,7 @@
                 <li class="active">
                     <a href="javascript: void(0);" aria-expanded="true"><i class="icon-note"></i> 会议 <span class="fa arrow"></span></a>
                     <ul class="nav-second-level nav" aria-expanded="true">
-                        <li><a href="组织者生成会议.html">生成会议</a></li>
+                        <li class="active"><a href="组织者生成会议.html">生成会议</a></li>
                         <li><a href="组织者查看会议.html">查看会议</a></li>
                         <li><a href="组织者审核会议.html">审核会议</a></li>
                     </ul>
@@ -107,11 +127,10 @@
     <div class="page-header">
         <div class="row">
             <!--面包屑导航-->
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12">
                 <ol class="breadcrumb">
                     <li><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
-                    <li>会议</li>
-                    <li class="nav-item" id="to-info">生成会议</li>
+                    <li>生成会议</li>
                 </ol>
             </div>
         </div>
@@ -121,42 +140,61 @@
     <!--页面主体内容部分开始-->
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="col-lg-6 bg-white">
-            <div class="form d-flex align-items-center">
-                <div class="content">
-                    <div class="form-group">
-                        <input id="unit" class="input-material" type="text" name="unit" placeholder="承办单位" >
-                        <div class="invalid-feedback">承办单位</div>
-                    </div>
-                    <div class="form-group">
-                        <input id="name" class="input-material" type="text" name="name" placeholder="会议名称" >
-                        <div class="invalid-feedback">会议名称</div>
-                    </div>
-                    <div class="form-group">
-                        <input id="date" class="input-material" type="text" name="date" placeholder="会议日期" >
-                        <div class="invalid-feedback">会议日期</div>
-                    </div>
-                    <div class="form-group">
-                        <input id="location" class="input-material" type="text" name="location" placeholder="会议地址" >
-                        <div class="invalid-feedback">会议地址</div>
-                    </div>
-                    <div class="form-group">
-                        <input id="info" class="input-material" type="text" name="info" placeholder="其他信息" >
-                        <div class="invalid-feedback">其他信息</div>
-                    </div>
-                    <div class="form-group">
-                        <input id="position" class="input-material" type="text" name="position" placeholder="酒店位置" >
-                        <div class="invalid-feedback">酒店位置</div>
-                    </div>
-                    <div class="form-group">
-                        <input id="car" class="input-material" type="text" name="car" placeholder="是否派车" >
-                        <div class="invalid-feedback">是否派车</div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12 text-center" >
-                            <a type="submit" id="create"  class="btn btn-info">更新</a>
+        <div class="card-box">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form class="form-horizontal form-validate user-info">
+                        <div class="form-group">
+                            <label for="unit" class="col-sm-2 control-label">承办单位</label>
+                            <div class="col-sm-10">
+                                <input id="unit" class="input-material" required data-msg="承办单位不能为空" type="text" name="unit" placeholder="承办单位" >
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">会议名称</label>
+                            <div class="col-sm-10">
+                                <input id="name" class="input-material" type="text" name="name" placeholder="会议名称" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="date" class="col-sm-2 control-label">会议日期</label>
+                            <div class="col-sm-10">
+                                <input id="date" class="input-material" type="text" name="date" placeholder="会议日期" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="location" class="col-sm-2 control-label">会议地址</label>
+                            <div class="col-sm-10">
+                                <input id="location" class="input-material" type="text" name="location" placeholder="会议地址" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="info" class="col-sm-2 control-label">其他信息</label>
+                            <div class="col-sm-10">
+                                <input id="info" class="input-material" type="text" name="info" placeholder="其他信息" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="position" class="col-sm-2 control-label">酒店位置</label>
+                            <div class="col-sm-10">
+                                <input id="position" class="input-material" type="text" name="position" placeholder="酒店位置" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="car" class="col-sm-2 control-label">是否派车</label>
+                            <div class="col-sm-10">
+                                <input id="car" class="input-material" type="text" name="car" placeholder="是否派车" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-6 col-sm-6">
+                                <button type="button" id="create" class="btn btn-info">更新</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="resp-error" class="invalid-feedback"></div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -195,11 +233,19 @@
 <script src="js/jquery.toast.min.js"></script>
 <script src="js/dashboard-alpha.js"></script>
 
+<script type="text/javascript" src="./assets/login-reg/vendor/laydate/laydate.js" charset="UTF-8"></script>
+<!-- JavaScript files-->
+<script src="./assets/login-reg/vendor/jquery-validation/jquery.validate.min.js"></script><!--表单验证-->
+<script src="./assets/login-reg/js/front.js"></script>
 <script>
     $(function(){
         let domain = "http://localhost:8081";
+        laydate.render({
+            elem: '#date' //指定元素
+        });
+
         // 创建会议
-        $("#update").click(function (){
+        $("#create").click(function (){
             let unit =$("#unit").val();
             let name =$("#name").val();
             let date =$("#date").val();
@@ -228,7 +274,6 @@
                         localStorage.setItem("token", jsonData.data.token);
                         window.location.href = "参与者主页面.html";
                     }else {
-                        alert(result.message)
                         document.getElementById("resp-error").html = result.message;
                     }
                 },

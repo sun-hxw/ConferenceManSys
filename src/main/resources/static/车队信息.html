@@ -28,6 +28,26 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
+    <style>
+        .card-box {
+            padding: 40px 30px;
+        }
+        .radio {
+            margin-right: 5px !important;
+        }
+        .radio-sex-box {
+            line-height: 34px !important;
+            display: flex;
+        }
+        .radio-sex {
+            margin: 3px 20px 0 0 !important;
+            line-height: 28px !important;
+            width: 50px;
+            display: flex;
+        }
+    </style>
 </head>
 <body>
 
@@ -80,7 +100,7 @@
                 <li>
                     <a href="车队主页面.html"><i class="icon-home"></i> 主页 </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="车队信息.html"><i class="icon-user"></i> 车队信息 </a>
                 </li>
                 <li>
@@ -107,7 +127,7 @@
     <div class="page-header">
         <div class="row">
             <!--面包屑导航-->
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 text-left">
                 <ol class="breadcrumb">
                     <li><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
                     <li>车队信息</li>
@@ -119,57 +139,39 @@
 
     <!--页面主体内容部分开始-->
     <div class="page-wrapper">
-        <div class="container-fluid">
-            <!-- Row -->
+        <div class="card-box">
             <div class="row">
-                <!-- Column -->
-                <div class="col-sm-11">
-                    <div class="card">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs profile-tab" role="tablist">
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#车队信息" role="tab">车队信息</a> </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane" id="车队信息" role="tabpanel">
-                                <div class="card-body">
-                                    <form class="form-horizontal form-material">
-                                        <br>
-                                        <div class="form-group">
-                                            <label class="col-md-12">车队名</label>
-                                            <div class="col-md-12">
-                                                <input id="name" type="text" class="form-control form-control-line" value="xx车队">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12">电话号码</label>
-                                            <div class="col-md-12">
-                                                <input id="phone" type="text" class="form-control form-control-line" value="617846738437">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12">密码</label>
-                                            <div class="col-md-12">
-                                                <input id="pass" type="password" value="password" class="form-control form-control-line">
-                                            </div>
-                                        </div>
-                                        <br/>
-                                        <br/>
-                                        <div class="form-group">
-                                            <div class="col-sm-12 text-center" >
-                                                <button id="update" class="btn btn-info">更新</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                <div class="col-md-6 col-md-offset-3">
+                    <form class="form-horizontal" class="user-info">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">车队名</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="name" class="form-control form-control-line" value="Jessie J">
                             </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="phone" class="col-sm-2 control-label">电话号码</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="phone" value="2342xxx" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass" class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                                <input type="password" id="pass" value="pass" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-6 col-sm-6">
+                                <button type="button" id="update" class="btn btn-info">更新</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="resp-error" class="invalid-feedback"></div>
+                        </div>
+                    </form>
                 </div>
-                <!-- Column -->
             </div>
-            <!-- Row -->
-
         </div>
     </div>
 
@@ -224,7 +226,7 @@
                     'token': localStorage.getItem("token")
                 },
                 success: function (jsonData,result) {
-                    if ("success"==result) {
+                    if ("success"==result && jsonData.data) {
                         console.log(jsonData.data.getFleetInfo);
                         let info = jsonData.data.getFleetInfo;
                         $("#name").val(info.fleetName);

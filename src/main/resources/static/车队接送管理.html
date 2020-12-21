@@ -28,6 +28,29 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
+    <style>
+        .data-content {
+            padding-top: 30px;
+        }
+        .card-box {
+            padding: 40px 30px;
+        }
+        .radio {
+            margin-right: 5px !important;
+        }
+        .radio-sex-box {
+            line-height: 34px !important;
+            display: flex;
+        }
+        .radio-sex {
+            margin: 3px 20px 0 0 !important;
+            line-height: 28px !important;
+            width: 50px;
+            display: flex;
+        }
+    </style>
 </head>
 <body>
 
@@ -86,7 +109,7 @@
                 <li class="active">
                     <a href="javascript: void(0);" aria-expanded="true"><i class="icon-list"></i> 车队管理 <span class="fa arrow"></span></a>
                     <ul class="nav-second-level nav" aria-expanded="true">
-                        <li><a href="车队接送管理.html">接送管理</a></li>
+                        <li class="active"><a href="车队接送管理.html">接送管理</a></li>
                         <li><a href="车队司机管理.html">司机管理</a></li>
                         <li><a href="车队参会人员管理.html">参会人员管理</a></li>
                     </ul>
@@ -107,7 +130,7 @@
     <div class="page-header">
         <div class="row">
             <!--面包屑导航-->
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 text-left">
                 <ol class="breadcrumb">
                     <li><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
                     <li>车队管理</li>
@@ -119,7 +142,71 @@
     <!--主体页面头部结束-->
 
     <!--页面主体内容部分开始-->
+    <!-- Button trigger modal -->
+    <div class="data-content">
+        <div class="card-box">
+            <div class="table-responsive">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPickUp">添加车队</button>
+                <table class="table table-hover" id="table-data">
+                    <thead>
+                    <tr>
+                        <th>带队人</th>
+                        <th>车队编号</th>
+                        <th>车队序列</th>
+                        <th>出发时间</th>
+                        <th>返回时间</th>
+                        <th>是否完成接送</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="addPickUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增车队</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" class="user-info">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">车队名</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="name" class="form-control form-control-line" value="Jessie J">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="col-sm-2 control-label">电话号码</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="phone" value="2342xxx" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass" class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                                <input type="password" id="pass" value="pass" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="resp-error" class="invalid-feedback"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="fleetId" value="4">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">添加</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--页面主体内容部分结束-->
 
@@ -158,16 +245,16 @@
 <script>
     $(function(){
         let domain = "http://localhost:8081";
-
+        getAllPickUp();
         // 添加接送
         function addPickUp () {
-            let participantId =$("#userName").val();
-            let driverId =$("#userName").val();
-            let conferenceId =$("#userName").val();
-            let trainNumber =$("#userName").val();
-            let toTime =$("#userName").val();
-            let returnTime =$("#userName").val();
-            let isFinishPickup =$("#userName").val();
+            let participantId =$("#participantId").val();
+            let driverId =$("#driverId").val();
+            let conferenceId =$("#conferenceId").val();
+            let trainNumber =$("#trainNumber").val();
+            let toTime =$("#toTime").val();
+            let returnTime =$("#returnTime").val();
+            let isFinishPickup =$("#isFinishPickup").val();
             $.ajax({
                 async: false,
                 type: "POST",
@@ -197,58 +284,6 @@
             });
         }
 
-        // 完成接送
-        function completePickUp () {
-            let pickUpId =$("#pickUpId").val();
-            $.ajax({
-                async: false,
-                type: "GET",
-                dataType: "json",
-                url: domain+'/pickUp/completePickUp',
-                contentType: "application/json",
-                data: {
-                    "pickUpId": pickUpId
-                },
-                success: function (jsonData,result) {
-                    if ("success"==result) {
-                        console.log(JSON.stringify(jsonData))
-                    }else {
-                        alert(result.message)
-                        document.getElementById("resp-error").html = result.message;
-                    }
-                },
-                error: function (error) {
-                    alert(error);
-                },
-            });
-        }
-
-        // 删除接送
-        function deletePickUp () {
-            let pickUpId =$("#pickUpId").val();
-            $.ajax({
-                async: false,
-                type: "GET",
-                dataType: "json",
-                url: domain+'/pickUp/deletePickUp',
-                contentType: "application/json",
-                data: {
-                    "pickUpId": pickUpId
-                },
-                success: function (jsonData,result) {
-                    if ("success"==result) {
-                        console.log(JSON.stringify(jsonData))
-                    }else {
-                        alert(result.message)
-                        document.getElementById("resp-error").html = result.message;
-                    }
-                },
-                error: function (error) {
-                    alert(error);
-                },
-            });
-        }
-
         // 接送列表
         function getAllPickUp () {
             let fleetId =$("#fleetId").val();
@@ -263,7 +298,23 @@
                 },
                 success: function (jsonData,result) {
                     if ("success"==result) {
-                        console.log(JSON.stringify(jsonData.data.getAllPickUp))
+                        console.log(JSON.stringify(jsonData.data.getAllFleetPickUp))
+                        let $html = "";
+                        for (let data of jsonData.data.getAllFleetPickUp) {
+                            let isFinish = data.finishPickup ? "是" : "否";
+                            $html += "" +
+                                "<tr>" +
+                                "    <td>"+data.participantId+"</td>" +
+                                "    <td>"+data.driverId+"</td>" +
+                                "    <td>"+data.trainNumber+"</td>" +
+                                "    <td>"+data.toTime+"</td>" +
+                                "    <td>"+data.returnTime+"</td>" +
+                                "    <td>"+isFinish+"</td>" +
+                                "    <td><button type='button' class='btn btn-info' onclick='completePickUp("+data.pickUpId+")' disabled='"+ data.finishPickup +"'>完成接送</button>" +
+                                "       <button type='button' class='btn btn-danger' onclick='deletePickUp("+data.pickUpId+")'>删除接送</button></td>" +
+                                "</tr>";
+                        }
+                        $("#tableData").html($html);
                     }else {
                         alert(result.message)
                         document.getElementById("resp-error").html = result.message;
@@ -275,6 +326,56 @@
             });
         }
     })
+
+    // 完成接送
+    function completePickUp (pickUpId) {
+        $.ajax({
+            async: false,
+            type: "GET",
+            dataType: "json",
+            url: domain+'/pickUp/completePickUp',
+            contentType: "application/json",
+            data: {
+                "pickUpId": pickUpId
+            },
+            success: function (jsonData,result) {
+                if ("success"==result) {
+                    console.log(JSON.stringify(jsonData))
+                }else {
+                    alert(result.message)
+                    document.getElementById("resp-error").html = result.message;
+                }
+            },
+            error: function (error) {
+                alert(error);
+            },
+        });
+    }
+
+    // 删除接送
+    function deletePickUp (pickUpId) {
+        $.ajax({
+            async: false,
+            type: "GET",
+            dataType: "json",
+            url: domain+'/pickUp/deletePickUp',
+            contentType: "application/json",
+            data: {
+                "pickUpId": pickUpId
+            },
+            success: function (jsonData,result) {
+                if ("success"==result) {
+                    console.log(JSON.stringify(jsonData))
+                }else {
+                    alert(result.message)
+                    document.getElementById("resp-error").html = result.message;
+                }
+            },
+            error: function (error) {
+                alert(error);
+            },
+        });
+    }
 </script>
 
 </body>

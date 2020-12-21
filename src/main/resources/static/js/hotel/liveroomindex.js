@@ -71,32 +71,6 @@ function deleteLiveRoomByAll(liveTable){
     }
 
 }
-function queryParticipantByParticipantId($participantId) {
-    $.ajax({
-        async: false,
-        // headers: {
-        //     'token': token,
-        // },
-        url: domain+"/participant/queryParticipantByParticipantId",
-        type: "get",
-        dataType: "json",
-        data: {
-            'participantId': $participantId,
-        },
-        success: function (data) {
-            console.log(data);
-            if (data["code"] === 200) {
-                participant = data["data"]["queryParticipantByParticipantId"];
-                console.log(participant);
-            } else {
-                alert("获取用户数据失败");
-            }
-        },
-        error: function () {
-            alert("获取用户数据失败");
-        },
-    });
-}
 function queryParticipantByParticipantPhone($participantPhone) {
     $.ajax({
         async: false,

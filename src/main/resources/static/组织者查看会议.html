@@ -28,6 +28,26 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
+    <style>
+        .card-box {
+            padding: 40px 30px;
+        }
+        .radio {
+            margin-right: 5px !important;
+        }
+        .radio-sex-box {
+            line-height: 34px !important;
+            display: flex;
+        }
+        .radio-sex {
+            margin: 3px 20px 0 0 !important;
+            line-height: 28px !important;
+            width: 50px;
+            display: flex;
+        }
+    </style>
 </head>
 <body>
 
@@ -87,7 +107,7 @@
                     <a href="javascript: void(0);" aria-expanded="true"><i class="icon-note"></i> 会议 <span class="fa arrow"></span></a>
                     <ul class="nav-second-level nav" aria-expanded="true">
                         <li><a href="组织者生成会议.html">生成会议</a></li>
-                        <li><a href="组织者查看会议.html">查看会议</a></li>
+                        <li class="active"><a href="组织者查看会议.html">查看会议</a></li>
                         <li><a href="组织者审核会议.html">审核会议</a></li>
                     </ul>
                 </li>
@@ -107,7 +127,7 @@
     <div class="page-header">
         <div class="row">
             <!--面包屑导航-->
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12">
                 <ol class="breadcrumb">
                     <li><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
                     <li>会议</li>
@@ -119,8 +139,29 @@
     <!--主体页面头部结束-->
 
     <!--页面主体内容部分开始-->
-
-
+    <div class="data-content">
+        <div class="card-box">
+            <div class="table-responsive">
+                <table class="table table-hover" id="table-data">
+                    <thead>
+                    <tr>
+                        <th>会议</th>
+                        <th>组织者</th>
+                        <th>车队</th>
+                        <th>酒店</th>
+                        <th>会议名称</th>
+                        <th>会议开始时间</th>
+                        <th>会议结束时间</th>
+                        <th>会议地点</th>
+                        <th>会议内容</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table-data-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <!--页面主体内容部分结束-->
 
 
@@ -170,6 +211,25 @@
                 success: function (data, result) {
                     console.log(JSON.stringify(data));
                     // 此处需要循环列表
+                    if (data.data.conferencesList) {
+                        var tableHtml = "";
+                        var item = data.data.conferencesList;
+                        for (var i = 0; i < item.length; i++) {
+                            tableHtml +=
+                                "<tr>" +
+                                "    <td>"+item[i].conferenceId+"</td>" +
+                                "    <td>"+item[i].organizerId+"</td>" +
+                                "    <td>"+item[i].fleetId+"</td>" +
+                                "    <td>"+item[i].hotelId+"</td>" +
+                                "    <td>"+item[i].conferenceName+"</td>" +
+                                "    <td>"+item[i].conferenceStart+"</td>" +
+                                "    <td>"+item[i].conferenceEnd+"</td>" +
+                                "    <td>"+item[i].conferenceLocation+"</td>" +
+                                "    <td>"+item[i].conferenceInfo+"</td>" +
+                                "</tr>";
+                        }
+                        $("#table-data-body").html(tableHtml);
+                    }
                 },
                 error: function (error) {
                     alert(error);

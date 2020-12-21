@@ -31,6 +31,29 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
+    <style>
+        .data-content {
+            padding-top: 30px;
+        }
+        .card-box {
+            padding: 40px 30px;
+        }
+        .radio {
+            margin-right: 5px !important;
+        }
+        .radio-sex-box {
+            line-height: 34px !important;
+            display: flex;
+        }
+        .radio-sex {
+            margin: 3px 20px 0 0 !important;
+            line-height: 28px !important;
+            width: 50px;
+            display: flex;
+        }
+    </style>
 </head>
 
 <body>
@@ -86,28 +109,22 @@
     <div class="nano">
         <div class="nano-content">
             <ul class="metisMenu nav" id="menu">
-                <li class="nav-heading"><span>Navigation</span></li>
                 <li>
-                    <a href="酒店index.html"><i class="icon-home"></i> 主页 </a>
+                    <a href="酒店主页面.html"><i class="icon-home"></i> 主页 </a>
                 </li>
                 <li>
-                    <a href="javascript: void(0);" aria-expanded="true"><i class="icon-user"></i> 酒店信息 <span
-                            class="fa arrow"></span></a>
-                    <ul class="nav-second-level nav" aria-expanded="true">
-                        <li><a href="酒店信息修改.html">酒店信息</a></li>
-                        <li><a href="酒店信息修改.html">酒店简介</a></li>
-                    </ul>
+                    <a href="酒店信息.html"><i class="icon-user"></i> 酒店信息 </a>
                 </li>
                 <li class="active">
                     <a href="javascript: void(0);" aria-expanded="true"><i class="icon-note"></i> 酒店管理 <span
                             class="fa arrow"></span></a>
                     <ul class="nav-second-level nav" aria-expanded="true">
-                        <li><a href="酒店住宿查询.html">查询住宿</a></li>
-                        <li><a href="酒店住宿查询.html">修改住宿</a></li>
+                        <li id="to-wait-live"><a href="酒店管理.html">住宿安排</a></li>
+                        <li id="to-all-live" class="active"><a href="javascript:void(0)">住宿查询</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="酒店index.html"><i class="icon-envelope-letter"></i> 消息 </a>
+                    <a href="酒店消息.html"><i class="icon-envelope-letter"></i> 消息 </a>
                 </li>
                 <li>
                     <a href="酒店index.html"><i class="icon-settings"></i> 设置 </a>
@@ -127,25 +144,40 @@
 <section class="main-content">
 
     <!-- page header start-->
-    <!-- <div class="page-header">
+    <div class="page-header">
         <div class="row">
-
-            <div class="col-sm-12 text-right">
+            <!--面包屑导航-->
+            <div class="col-sm-12">
                 <ol class="breadcrumb">
                     <li><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
-                    <li>查询住宿</li>
-                    <li>修改住宿</li>
+                    <li>住宿查询</li>
                 </ol>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- page header end -->
 
     <!--start page content-->
 
-    <table id="LiveRoomTable" border="1">
-
-    </table>
+    <div class="data-content">
+        <div class="card-box">
+            <div class="table-responsive">
+                <table class="table table-hover" id="table-data">
+                    <thead>
+                    <tr>
+                        <th>入住人姓名</th>
+                        <th>入住人电话</th>
+                        <th>会议编号</th>
+                        <th>房间号</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="LiveRoomTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <!--end page content-->
 
@@ -181,42 +213,14 @@
 <script src="js/jQuery.style.switcher.js"></script>
 <script src="js/jquery.steps.min.js"></script>
 <script src="js/jquery.validate.min.js"></script>
+<script src="js/hotel/hotelindex.js"></script>
+<script src="js/hotel/liveroomindex.js"></script>
 
 <script>
-
-    $("#example-basic").steps({
-        headerTag: "h3",
-        bodyTag: "section",
-
-        autoFocus: true
-    });
-    //steps with form
-    var form = $("#example-form");
-    form.validate({
-        errorPlacement: function errorPlacement(error, element) {
-            element.before(error);
-        },
-        rules: {
-            confirm: {
-                equalTo: "#password"
-            }
-        }
-    });
-    form.children("div").steps({
-        headerTag: "h3",
-        bodyTag: "section",
-        transitionEffect: "slideLeft",
-        onStepChanging: function (event, currentIndex, newIndex) {
-            form.validate().settings.ignore = ":disabled,:hidden";
-            return form.valid();
-        },
-        onFinishing: function (event, currentIndex) {
-            form.validate().settings.ignore = ":disabled";
-            return form.valid();
-        },
-        onFinished: function (event, currentIndex) {
-            alert("Submitted!");
-        }
+    $(function () {
+        //安排住宿
+        findAllLiveRoomByHotelId();
+        showLiveRoomTable();
     });
 </script>
 

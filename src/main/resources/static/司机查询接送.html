@@ -28,6 +28,29 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
+    <style>
+        .data-content {
+            padding-top: 30px;
+        }
+        .card-box {
+            padding: 40px 30px;
+        }
+        .radio {
+            margin-right: 5px !important;
+        }
+        .radio-sex-box {
+            line-height: 34px !important;
+            display: flex;
+        }
+        .radio-sex {
+            margin: 3px 20px 0 0 !important;
+            line-height: 28px !important;
+            width: 50px;
+            display: flex;
+        }
+    </style>
 </head>
 <body>
 
@@ -106,7 +129,7 @@
     <div class="page-header">
         <div class="row">
             <!--面包屑导航-->
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 text-left">
                 <ol class="breadcrumb">
                     <li><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
                     <li>接送管理</li>
@@ -119,7 +142,26 @@
 
     <!--页面主体内容部分开始-->
 
-
+    <div class="data-content">
+        <div class="card-box">
+            <div class="table-responsive">
+                <table class="table table-hover" id="table-data">
+                    <thead>
+                    <tr>
+                        <th>接送单号</th>
+                        <th>姓名</th>
+                        <th>火车/航班号</th>
+                        <th>预计到达时间</th>
+                        <th>离开时间</th>
+                        <th>是否完成</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <!--页面主体内容部分结束-->
 
 
@@ -170,6 +212,20 @@
             success: function (jsonData,result) {
                 if ("success"==result) {
                     console.log(JSON.stringify(jsonData.data.getParticipantAllPickUp))
+                    let $html = "";
+                    for (let data of jsonData.data.getParticipantAllPickUp) {
+                        let isFinish = data.finishPickup ? "是" : "否";
+                        $html += "" +
+                            "<tr>" +
+                            "    <td>"+data.participantId+"</td>" +
+                            "    <td>"+data.driverId+"</td>" +
+                            "    <td>"+data.trainNumber+"</td>" +
+                            "    <td>"+data.toTime+"</td>" +
+                            "    <td>"+data.returnTime+"</td>" +
+                            "    <td>"+isFinish+"</td>" +
+                            "</tr>";
+                    }
+                    $("#tableData").html($html);
                 }else {
                     alert(result.message)
                     document.getElementById("resp-error").html = result.message;

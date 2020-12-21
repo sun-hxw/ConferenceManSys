@@ -28,6 +28,29 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
+    <style>
+        .data-content {
+            padding-top: 30px;
+        }
+        .card-box {
+            padding: 40px 30px;
+        }
+        .radio {
+            margin-right: 5px !important;
+        }
+        .radio-sex-box {
+            line-height: 34px !important;
+            display: flex;
+        }
+        .radio-sex {
+            margin: 3px 20px 0 0 !important;
+            line-height: 28px !important;
+            width: 50px;
+            display: flex;
+        }
+    </style>
 </head>
 <body>
 
@@ -87,7 +110,7 @@
                     <a href="javascript: void(0);" aria-expanded="true"><i class="icon-list"></i> 车队管理 <span class="fa arrow"></span></a>
                     <ul class="nav-second-level nav" aria-expanded="true">
                         <li><a href="车队接送管理.html">接送管理</a></li>
-                        <li><a href="车队司机管理.html">司机管理</a></li>
+                        <li class="active"><a href="车队司机管理.html">司机管理</a></li>
                         <li><a href="车队参会人员管理.html">参会人员管理</a></li>
                     </ul>
                 </li>
@@ -107,7 +130,7 @@
     <div class="page-header">
         <div class="row">
             <!--面包屑导航-->
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 text-left">
                 <ol class="breadcrumb">
                     <li><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
                     <li>车队管理</li>
@@ -120,6 +143,26 @@
 
     <!--页面主体内容部分开始-->
 
+    <div class="data-content">
+        <div class="card-box">
+            <div class="table-responsive">
+                <table class="table table-hover" id="table-data">
+                    <thead>
+                    <tr>
+                        <th>司机编号</th>
+                        <th>司机名称</th>
+                        <th>车辆代号</th>
+                        <th>司机编号</th>
+                        <th>司机密码</th>
+                        <th>司机手机</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <!--页面主体内容部分结束-->
 
@@ -172,7 +215,21 @@
                 },
                 success: function (jsonData,result) {
                     if ("success"==result) {
-                        console.log(JSON.stringify(jsonData.data.getAllFleetDriver))
+                        let $html = "";
+                        for (let i of jsonData.data.getAllFleetDriver) {
+                            if (i.roomId == null){
+                                $html +=
+                                    "<tr>" +
+                                    "    <td>"+i.driverId+"</td>" +
+                                    "    <td>"+i.driverName+"</td>" +
+                                    "    <td>"+i.carNumber+"</td>" +
+                                    "    <td>"+i.fleetId+"</td>" +
+                                    "    <td>"+i.driverPass+"</td>" +
+                                    "    <td>"+i.driverPhone+"</td>" +
+                                    "</tr>";
+                            }
+                        }
+                        $("#tableData").html($html);
                     }else {
                         alert(result.message)
                         // document.getElementById("resp-error").html = result.message;
