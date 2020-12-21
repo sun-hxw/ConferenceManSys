@@ -168,7 +168,6 @@
             let toTime =$("#userName").val();
             let returnTime =$("#userName").val();
             let isFinishPickup =$("#userName").val();
-            if (phone.length <= 0 || pass.length <= 0) {return false;}
             $.ajax({
                 async: false,
                 type: "POST",
@@ -201,7 +200,6 @@
         // 完成接送
         function completePickUp () {
             let pickUpId =$("#pickUpId").val();
-            if (phone.length <= 0 || pass.length <= 0) {return false;}
             $.ajax({
                 async: false,
                 type: "GET",
@@ -228,7 +226,6 @@
         // 删除接送
         function deletePickUp () {
             let pickUpId =$("#pickUpId").val();
-            if (phone.length <= 0 || pass.length <= 0) {return false;}
             $.ajax({
                 async: false,
                 type: "GET",
@@ -255,7 +252,6 @@
         // 接送列表
         function getAllPickUp () {
             let fleetId =$("#fleetId").val();
-            if (phone.length <= 0 || pass.length <= 0) {return false;}
             $.ajax({
                 async: false,
                 type: "GET",

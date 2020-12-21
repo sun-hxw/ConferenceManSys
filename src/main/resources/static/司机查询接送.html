@@ -153,5 +153,33 @@
 <script src="js/datatables.responsive.min.js"></script>
 <script src="js/jquery.toast.min.js"></script>
 <script src="js/dashboard-alpha.js"></script>
+
+<script>
+    // 接送列表
+    function getParticipantAllPickUp () {
+        let driverId =$("#driverId").val();
+        $.ajax({
+            async: false,
+            type: "GET",
+            dataType: "json",
+            url: domain+'/pickUp/getParticipantAllPickUp',
+            contentType: "application/json",
+            data: {
+                "driverId": driverId
+            },
+            success: function (jsonData,result) {
+                if ("success"==result) {
+                    console.log(JSON.stringify(jsonData.data.getParticipantAllPickUp))
+                }else {
+                    alert(result.message)
+                    document.getElementById("resp-error").html = result.message;
+                }
+            },
+            error: function (error) {
+                alert(error);
+            },
+        });
+    }
+</script>
 </body>
 </html>

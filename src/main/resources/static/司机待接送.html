@@ -220,6 +220,31 @@
             $(document).ready(function () {
                 $('#datatable').dataTable();
             });
+            // 待接送列表
+            function getDriverWaitPickUp () {
+                let driverId =$("#driverId").val();
+                $.ajax({
+                    async: false,
+                    type: "GET",
+                    dataType: "json",
+                    url: domain+'/pickUp/getDriverWaitPickUp',
+                    contentType: "application/json",
+                    data: {
+                        "driverId": driverId
+                    },
+                    success: function (jsonData,result) {
+                        if ("success"==result) {
+                            console.log(JSON.stringify(jsonData.data.getDriverWaitPickUp))
+                        }else {
+                            alert(result.message)
+                            document.getElementById("resp-error").html = result.message;
+                        }
+                    },
+                    error: function (error) {
+                        alert(error);
+                    },
+                });
+            }
         </script>
     </body>
 </html>
