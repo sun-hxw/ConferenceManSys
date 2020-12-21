@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Material Admin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="./assets/login-reg/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <link rel="stylesheet" href="./assets/login-reg/css/style.default.css" id="theme-stylesheet">
+      <style type="text/css">
+          #textCode {
+              font-family: Arial;
+              font-style: italic;
+              font-weight: bold;
+              border: 0;
+              letter-spacing: 2px;
+              color: blue;
+          }
+      </style>
+  </head>
+  <body>
+    <div class="page login-page">
+      <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>欢迎注册</h1>
+                  </div>
+                  <p>会务组织者注册界面</p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel    -->
+            <div class="col-lg-6 bg-white">
+              <div class="form d-flex align-items-center">
+                <div class="content">
+                    <div class="form-group">
+                      	<input id="unit" class="input-material" type="text" name="unit" placeholder="单位" >
+						<div class="invalid-feedback">
+                            单位
+						</div>
+                    </div>
+                    <div class="form-group">
+                        <input id="phone" class="input-material" type="text" name="phone" placeholder="电话号码" >
+                        <div class="invalid-feedback">
+                            电话号码不正确
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      	<input id="email" class="input-material" type="text" name="email" placeholder="邮箱" >
+						<div class="invalid-feedback">
+							邮箱格式不正确
+						</div>
+                    </div>
+                    <div class="form-group">
+                      	<input id="pass" class="input-material" type="password" name="pass" placeholder="请输入密码"   >
+                    	<div class="invalid-feedback">
+							密码必填
+						</div>
+                    </div>
+                    <div class="form-group">
+                      	<input id="password" class="input-material" type="password" name="password" placeholder="确认密码"   >
+                    	<div class="invalid-feedback">
+							两次密码必须相同
+						</div>
+                    </div>
+                    <div class="form-group">
+                      	<input id="code" class="input-material" style="display: inline-block; width: calc(100% - 90px);" type="text" name="code" placeholder="验证码">
+                      	<input id="textCode" type="button" name="code" style="display: inline-block; width: 80px;">
+                    	<div class="invalid-feedback">
+							验证码不正确
+						</div>
+                    </div>
+                    <div class="form-group">
+                      <button id="regbtn" type="button" name="registerSubmit" class="btn btn-primary">注册</button>
+                        <small>已有账号?</small><a href="./组织者登录.html" class="signup">&nbsp;登录</a>
+                    </div>
+                    <div class="form-group">
+                        <div id="resp-error" class="invalid-feedback"></div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="./assets/login-reg/js/jquery.min.js"></script>
+    <script src="./assets/login-reg/js/bootstrap.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script>
+    	$(function(){
+    	    let domain = "http://localhost:8081";
+
+    	    // 验证码
+            createCode();
+            $("#textCode").click(function () {
+                createCode();
+            });
+            var codeText; //在全局定义验证码
+            function createCode() {
+                codeText = "";
+                var codeLength = 4; //验证码的长度
+                var checkCode = document.getElementById("textCode");
+                var random = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                    'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']; //随机数
+                for(var i = 0; i < codeLength; i++) { //循环操作
+                    var index = Math.floor(Math.random() * 36); //取得随机数的索引（0~35）
+                    codeText += random[index]; //根据索引取得随机数加到code上
+                }
+                checkCode.value = codeText; //把code值赋给验证码
+            }
+
+    		/*错误class  form-control is-invalid
+    		正确class  form-control is-valid*/
+    		/*验证用户名、密码、工作单位、性别、手机号、邮箱*/
+            var unit,phone,email,pass,password,code;
+            var flagWorkUnit = false;
+    		$("#unit").blur(function(){
+                unit=$("#unit").val();
+    			if(unit.length > 0){
+                    $("#unit").removeClass("form-control is-invalid")
+                    $("#unit").addClass("form-control is-valid");
+                    flagWorkUnit=true;
+    			}else{
+                    $("#unit").removeClass("form-control is-valid")
+                    $("#unit").addClass("form-control is-invalid");
+                    flagWorkUnit=false;
+    			}
+    		})
+            /*验证确认密码 */
+            var flagPhone = false;
+    		$("#phone").blur(function(){
+                phone=$("#phone").val();
+    			if(phone.length === 11 && /^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(Number(phone))){
+                    $("#phone").removeClass("form-control is-invalid")
+                    $("#phone").addClass("form-control is-valid");
+                    flagPhone=true;
+    			}else{
+                    $("#phone").removeClass("form-control is-valid")
+                    $("#phone").addClass("form-control is-invalid");
+                    flagPhone=false;
+    			}
+    		})
+            var flagEmail = false;
+            $("#email").blur(function(){
+                email=$("#email").val();
+                if(email.length > 0 && /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/.test(email)){
+                    $("#email").removeClass("form-control is-invalid")
+                    $("#email").addClass("form-control is-valid");
+                    flagEmail=true;
+                }else{
+                    $("#email").removeClass("form-control is-valid")
+                    $("#email").addClass("form-control is-invalid");
+                    flagEmail=false;
+                }
+            })
+            var flagPass = false;
+            $("#pass").blur(function(){
+                pass=$("#pass").val();
+                if(pass.length > 0){
+                    $("#pass").removeClass("form-control is-invalid")
+                    $("#pass").addClass("form-control is-valid");
+                    flagPass=true;
+                }else{
+                    $("#pass").removeClass("form-control is-valid")
+                    $("#pass").addClass("form-control is-invalid");
+                    flagPass=false;
+                }
+            })
+            var flagRePass = false;
+            $("#password").blur(function(){
+                password=$("#password").val();
+                if(pass.length > 0 && password === pass){
+                    $("#password").removeClass("form-control is-invalid")
+                    $("#password").addClass("form-control is-valid");
+                    flagRePass=true;
+                }else{
+                    $("#password").removeClass("form-control is-valid")
+                    $("#password").addClass("form-control is-invalid");
+                    flagRePass=false;
+                }
+            })
+            var flagCode = false;
+            $("#code").blur(function() {
+                code=$("#code").val();
+                if(code.length > 0 && code.toUpperCase() === codeText){
+                    $("#code").removeClass("form-control is-invalid")
+                    $("#code").addClass("form-control is-valid");
+                    flagCode=true;
+                }else{
+                    $("#code").removeClass("form-control is-valid")
+                    $("#code").addClass("form-control is-invalid");
+                    flagCode=false;
+                }
+            });
+
+
+            $("#regbtn").click(function(){
+    			if(flagWorkUnit && flagPhone && flagEmail && flagPass && flagRePass && flagCode){
+                    register();
+    			}else{
+    				if(!flagWorkUnit){
+    					$("#unit").addClass("form-control is-invalid");
+    				}
+    				if(!flagPhone){
+    					$("#phone").addClass("form-control is-invalid");
+    				}
+    				if(!flagEmail){
+    					$("#email").addClass("form-control is-invalid");
+    				}
+    				if(!flagPass){
+    					$("#pass").addClass("form-control is-invalid");
+    				}
+    				if(!flagRePass){
+    					$("#password").addClass("form-control is-invalid");
+    				}
+    				if(!flagCode){
+    					$("#code").addClass("form-control is-invalid");
+    				}
+    			}
+    		})
+
+            // 注册
+            function register() {
+                let workUnit =$("#unit").val();
+                let phone =$("#phone").val();
+                let email =$("#email").val();
+                let pass =$("#pass").val();
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: domain+'/organizer/register',
+                    contentType: "application/json",
+                    data:JSON.stringify({
+                        "organizerUnit": workUnit,
+                        "organizerEmail": email,
+                        "organizerPass": pass,
+                        "organizerPhone": phone
+                    }),
+                    success: function (jsonData,result) {
+                        console.log("jsonData is :" + JSON.stringify(jsonData));
+                        if ("success"==result) {
+                            localStorage.setItem("token", jsonData.data.token);
+                            window.location.href = "组织者主页面.html";
+                        }else {
+                            alert(result.message)
+                            document.getElementById("resp-error").html = result.message;
+                        }
+                    },
+                    error: function (error) {
+                        alert(error);
+                    },
+                });
+            }
+    	})
+    </script>
+  </body>
+</html>

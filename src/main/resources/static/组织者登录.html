@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Material Admin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="./assets/login-reg/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <link rel="stylesheet" href="./assets/login-reg/css/style.default.css" id="theme-stylesheet">
+  </head>
+  <body>
+    <div class="page login-page">
+      <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>欢迎登录</h1>
+                  </div>
+                  <p>会务组织者登录界面</p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel    -->
+            <div class="col-lg-6 bg-white">
+              <div class="form d-flex align-items-center">
+                <div class="content">
+                  <form method="post" class="form-validate" id="loginFrom">
+                    <div class="form-group">
+                      <input id="userName" type="text" name="userName" required data-msg="用户名不能为空" placeholder="电话号码" class="input-material">
+                    </div>
+                    <div class="form-group">
+                      <input id="passWord" type="password" name="passWord" required data-msg="密码不能为空" placeholder="密码" class="input-material">
+                    </div>
+                    <div class="form-group">
+                      <button id="login" type="button" class="btn btn-primary">登录</button>
+                      <small>没有账号?</small><a href="./会务参加者注册.html" class="signup">&nbsp;注册</a>
+                    </div>
+                    <div class="form-group">
+                      <div id="resp-error" class="invalid-feedback"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="./assets/login-reg/js/jquery.min.js"></script>
+    <script src="./assets/login-reg/js/bootstrap.min.js"></script>
+    <!-- JavaScript files-->
+    <script src="./assets/login-reg/vendor/jquery-validation/jquery.validate.min.js"></script><!--表单验证-->
+    <!-- Main File-->
+    <script src="./assets/login-reg/js/front.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script>
+    	$(function(){
+          let domain = "http://localhost:8081";
+    		/*登录*/
+    		$("#login").click(function(){
+                login();
+    		})
+
+            // 登录
+            function login () {
+              let phone =$("#userName").val();
+              let pass =$("#passWord").val();
+              if (phone.length <= 0 || pass.length <= 0) {return false;}
+              $.ajax({
+                async: false,
+                type: "POST",
+                dataType: "json",
+                url: domain+'/organizer/login',
+                contentType: "application/json",
+                data:JSON.stringify({
+                  "organizerPhone": phone,
+                  "organizerPass": pass
+                }),
+                success: function (jsonData,result) {
+                  if ("success"==result) {
+                    localStorage.setItem("token", jsonData.data.token);
+                    window.location.href = "组织者主页面.html";
+                  }else {
+                    alert(result.message)
+                    document.getElementById("resp-error").html = result.message;
+                  }
+                },
+                error: function (error) {
+                  alert(error);
+                },
+              });
+            }
+    	})
+    </script>
+  </body>
+</html>
