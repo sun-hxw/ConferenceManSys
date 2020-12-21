@@ -110,6 +110,27 @@
 
     <![endif]-->
 
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
+    <style>
+        .info-grid {
+            grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
+            grid-gap: 20px 20px;
+        }
+        h4 {
+            margin: 10px 0;
+        }
+        .card-text {
+            padding: 0 10px;
+            margin: 10px 0;
+        }
+        .card-text > span {
+            margin-right: 5px;
+        }
+        .card-box {
+            padding-bottom: 20px;
+        }
+    </style>
     <script>
         let domain = "http://localhost:8081";
             let participant ;
@@ -151,9 +172,7 @@
                     }
                     $('#mainContent').html(listConference);
 
-                    if (data["code"] === 200) {
-                        alert("获取用户数据成功");
-                    } else {
+                    if (data["code"] !== 200) {
                         alert("获取用户数据失败1");
                     }
                 },
@@ -194,30 +213,18 @@
                     let organizer = getOrganizerInfo(organizerId);
                     console.log("organizer="+organizer);
                     var organizerUnit = organizer.organizerUnit;
+                    listConference +=
+                        '<div id= "' + $conferenceId +' " class="card-box">' +
+                        '    <div><img src="会务管理系统样式1/picture/conferenceImg.jpeg" style="width: 100%; height: 140px;"></div>' +
+                        '    <div class="card-text"><h4>'+ conferenceName +'</h4></div>' +
+                        '    <div class="card-text"><span class="iconfont icon-dizhi"></span>'+ conferenceLocation +'</div>' +
+                        '    <div class="card-text"><span class="iconfont icon-shijian"></span>'+ conferenceStart + '-' +conferenceEnd +'</div>' +
+                        '    <div class="card-text"><span class="iconfont icon-zhubandanwei"></span>'+ organizerUnit +'</div>' +
+                        '    <div class="card-text text-center"><a type="submit" onclick=\"exitConference('+ conferenceId +')" class="btn btn-danger">退出会议</a></div>' +
+                        '</div>';
+                    $('#mainContent').html(listConference);
 
-                    listConference += '   <div id= "' + $conferenceId +' " class="col-lg-3" style = "margin: 0px 10px;">' +
-                                '                        <a href = "#">' +
-                                '                            <div class="items">' +
-                                '                                <img class="img-responsive" src="会务管理系统样式1/picture/conferenceImg.jpeg" />' +
-                                '                                <h4>'+ conferenceName +'</h4>' +
-                                '                                <p> <span class="iconfont icon-dizhi"></span> '+conferenceLocation+'</p>' +
-                                '                                <p> <span class="iconfont icon-shijian"></span>'+conferenceStart + '-' +conferenceEnd +'</p>' +
-                                '                                <p> <span class="iconfont icon-zhubandanwei"></span> '+organizerUnit+'</p>' +
-                                '                            </div>' +
-                                '                        </a>' +
-                                '                        <div class="form-group">' +
-                                '                            <div class="col-sm-12 text-center" > ' +
-                                '                                  <a  onclick=\"exitConference('+ conferenceId +')"  class="btn btn-danger">退出会议</a> ' +
-                                '                            </div>' +
-                                '                        </div>'+
-                                '            </div>'
-
-                        // if (data["code"] === 200) {
-                        //     alert("获取用户数据成功2");
-                        // } else {
-                        //     alert("获取用户数据失败1");
-                        // }
-                    },
+                },
                     error: function () {
                         alert("获取用户数据失败2");
                     },
@@ -239,7 +246,6 @@
                         console.log(typeof data)
                         data = JSON.parse(data)
                         console.log(typeof data)
-                        //console.log(data['data']['joinConferenceList'])
 
                         if (data["code"] === 200) {
                             alert("取消会议成功！");
@@ -267,11 +273,6 @@
                     success: function (data) {
                         console.log(JSON.stringify(data.data.getOrganizerInfoById));
                         organizer = data.data.getOrganizerInfoById;
-                        // if (data["code"] === 200) {
-                        //     alert("获取组织者数据成功");
-                        // } else {
-                        //     alert("获取组织者数据失败");
-                        // }
                     },
                     error: function () {
                         alert("获取用户数据失败2");
@@ -373,7 +374,7 @@
     <!--主体页面头部结束-->
 
     <!--页面主体内容部分开始-->
-    <div class="container" id = "mainContent">
+    <div class="container grid-base info-grid" id = "mainContent">
     </div>
     <!--页面主体内容部分结束-->
 

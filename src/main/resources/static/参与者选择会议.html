@@ -45,8 +45,6 @@
     <link href="css/jquery.toast.min.css" rel="stylesheet">
     <!--template css-->
     <link href="css/style.css" rel="stylesheet">
-    <!--  全局公共样式  -->
-    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -110,13 +108,25 @@
     </style>
 
     <![endif]-->
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
     <style>
         .info-grid {
-            grid-template-columns: repeat(auto-fit, minmax(265px, 265px));
+            grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
             grid-gap: 20px 20px;
+        }
+        h4 {
+            margin: 10px 0;
         }
         .card-text {
             padding: 0 10px;
+            margin: 10px 0;
+        }
+        .card-text > span {
+            margin-right: 5px;
+        }
+        .card-box {
+            padding-bottom: 20px;
         }
     </style>
     <script>
@@ -188,7 +198,6 @@
                     'organizerId': organizerId,
                 },
                 success: function (data) {
-                    data = JSON.parse(data)
                     // console.log(data['data']['getOrganizerInfo'])
                     organizer = data['data']['getOrganizerInfo'];
                 },

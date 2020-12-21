@@ -1,6 +1,3 @@
-div, p, h1, h2, h3, h4, h5, h6 {
-    margin: 10px 0;
-}
 .flex-base {
     display: flex;
     display: -webkit-flex;
@@ -20,7 +17,10 @@ div, p, h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
 }
 .grid-base {
-    display: grid;
+    display: grid !important;
+}
+.grid-base:before {
+    display: none !important;
 }
 .card-box {
     border-radius: 10px;
