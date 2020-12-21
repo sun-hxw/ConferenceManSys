@@ -111,7 +111,7 @@
                 <ol class="breadcrumb">
                     <li><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
                     <li>会议</li>
-                    <li>生成会议</li>
+                    <li class="nav-item" id="to-info">生成会议</li>
                 </ol>
             </div>
         </div>
@@ -119,8 +119,48 @@
     <!--主体页面头部结束-->
 
     <!--页面主体内容部分开始-->
-
-
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="col-lg-6 bg-white">
+            <div class="form d-flex align-items-center">
+                <div class="content">
+                    <div class="form-group">
+                        <input id="unit" class="input-material" type="text" name="unit" placeholder="承办单位" >
+                        <div class="invalid-feedback">承办单位</div>
+                    </div>
+                    <div class="form-group">
+                        <input id="name" class="input-material" type="text" name="name" placeholder="会议名称" >
+                        <div class="invalid-feedback">会议名称</div>
+                    </div>
+                    <div class="form-group">
+                        <input id="date" class="input-material" type="text" name="date" placeholder="会议日期" >
+                        <div class="invalid-feedback">会议日期</div>
+                    </div>
+                    <div class="form-group">
+                        <input id="location" class="input-material" type="text" name="location" placeholder="会议地址" >
+                        <div class="invalid-feedback">会议地址</div>
+                    </div>
+                    <div class="form-group">
+                        <input id="info" class="input-material" type="text" name="info" placeholder="其他信息" >
+                        <div class="invalid-feedback">其他信息</div>
+                    </div>
+                    <div class="form-group">
+                        <input id="position" class="input-material" type="text" name="position" placeholder="酒店位置" >
+                        <div class="invalid-feedback">酒店位置</div>
+                    </div>
+                    <div class="form-group">
+                        <input id="car" class="input-material" type="text" name="car" placeholder="是否派车" >
+                        <div class="invalid-feedback">是否派车</div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 text-center" >
+                            <a type="submit" id="create"  class="btn btn-info">更新</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--页面主体内容部分结束-->
 
 
@@ -154,5 +194,51 @@
 <script src="js/datatables.responsive.min.js"></script>
 <script src="js/jquery.toast.min.js"></script>
 <script src="js/dashboard-alpha.js"></script>
+
+<script>
+    $(function(){
+        let domain = "http://localhost:8081";
+        // 创建会议
+        $("#update").click(function (){
+            let unit =$("#unit").val();
+            let name =$("#name").val();
+            let date =$("#date").val();
+            let location =$("#location").val();
+            let info =$("#info").val();
+            let position =$("#position").val();
+            let car =$("#car").val();
+            $.ajax({
+                async: false,
+                type: "POST",
+                dataType: "json",
+                url: domain+'/conference/create',
+                contentType: "application/json",
+                data:JSON.stringify({
+                    "unit": unit,
+                    "name": unit,
+                    "date": unit,
+                    "location": unit,
+                    "info": unit,
+                    "position": unit,
+                    "car": unit
+                }),
+                success: function (jsonData,result) {
+                    console.log("data is :" + result);
+                    if ("success"==result) {
+                        localStorage.setItem("token", jsonData.data.token);
+                        window.location.href = "参与者主页面.html";
+                    }else {
+                        alert(result.message)
+                        document.getElementById("resp-error").html = result.message;
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                },
+            });
+        })
+    })
+</script>
+
 </body>
 </html>
