@@ -21,7 +21,7 @@
         update participant set participant_name=#{participantName},participant_job=#{participantJob},
         participant_workunit=#{participantWorkUnit},participant_email=#{participantEmail},
         participant_pass=#{participantPass},participant_phone=#{participantPhone},participant_sex=#{participantSex},
-        participant_id_card=#{participantIdCard} where participant_id=#{participantId};
+        participant_idcard=#{participantIdCard} where participant_id=#{participantId};
     </update>
 
     <delete id = "deleteParticipant">
@@ -30,7 +30,7 @@
     
     <insert id = "addAParticipant" parameterType="Participant">
         insert into participant(participant_id,participant_name,participant_job,participant_workunit,
-        participant_email,participant_pass,participant_phone,participant_sex,participant_id_card)
+        participant_email,participant_pass,participant_phone,participant_sex,participant_idcard)
         values(#{participantId},#{participantName},#{participantJob},#{participantWorkUnit},
         #{participantEmail},#{participantPass},#{participantPhone},#{participantSex},#{participantIdCard});
     </insert>
