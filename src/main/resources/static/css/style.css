@@ -1503,6 +1503,9 @@ body.nav-toggle .float-navigation {
   background-color: rgba(0, 0, 0, 0.1);
   border-left-color: #23b7e5;
 }
+.metisMenu.nav > li.active li.active /deep/ * {
+  color: #23b7e5;
+}
 .metisMenu.nav > li.active > a {
   color: white;
 }

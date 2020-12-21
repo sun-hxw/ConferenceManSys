@@ -81,6 +81,12 @@
 						</div>
                     </div>
                     <div class="form-group">
+                      	<input id="idCard" class="input-material" type="text" name="idCard" placeholder="身份证号" >
+						<div class="invalid-feedback">
+							身份证必填
+						</div>
+                    </div>
+                    <div class="form-group">
                       	<input id="pass" class="input-material" type="password" name="pass" placeholder="请输入密码"   >
                     	<div class="invalid-feedback">
 							密码必填
@@ -116,6 +122,12 @@
     <!-- JavaScript files-->
     <script src="./assets/login-reg/js/jquery.min.js"></script>
     <script src="./assets/login-reg/js/bootstrap.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
     <script>
     	$(function(){
     	    let domain = "http://localhost:8081";
@@ -142,7 +154,7 @@
     		/*错误class  form-control is-invalid
     		正确class  form-control is-valid*/
     		/*验证用户名、密码、工作单位、性别、手机号、邮箱*/
-            var name,workUnit,phone,email,pass,password,code;
+            var name,workUnit,phone,email,idCard,pass,password,code;
             var flagName = false;
     		$("#name").blur(function(){
     			name=$("#name").val();
@@ -196,6 +208,19 @@
                     flagEmail=false;
                 }
             })
+            var flagIdCard = false;
+            $("#idCard").blur(function() {
+                idCard=$("#idCard").val();
+                if(idCard.length > 0){
+                    $("#idCard").removeClass("form-control is-invalid")
+                    $("#idCard").addClass("form-control is-valid");
+                    flagIdCard=true;
+                }else{
+                    $("#idCard").removeClass("form-control is-valid")
+                    $("#idCard").addClass("form-control is-invalid");
+                    flagIdCard=false;
+                }
+            });
             var flagPass = false;
             $("#pass").blur(function(){
                 pass=$("#pass").val();
@@ -238,7 +263,7 @@
 
 
             $("#regbtn").click(function(){
-    			if(flagName && flagWorkUnit && flagPhone && flagEmail && flagPass && flagRePass && flagCode){
+    			if(flagName && flagWorkUnit && flagPhone && flagEmail && flagIdCard && flagPass && flagRePass && flagCode){
                     register();
     			}else{
     				if(!flagName){
@@ -262,6 +287,9 @@
     				if(!flagCode){
     					$("#code").addClass("form-control is-invalid");
     				}
+    				if(!flagIdCard){
+    					$("#idCard").addClass("form-control is-invalid");
+    				}
     			}
     		})
 
@@ -274,6 +302,7 @@
                 let email =$("#email").val();
                 let pass =$("#pass").val();
                 let sex =$("input[name='sexRadios']:checked").val();
+                let idCard =$("#idCard").val();
                 $.ajax({
                     type: "POST",
                     dataType: "json",
@@ -286,7 +315,8 @@
                         "participantEmail": email,
                         "participantPass": pass,
                         "participantPhone": phone,
-                        "participantSex": sex
+                        "participantSex": sex,
+                        "participantIdCard": idCard
                     }),
                     success: function (jsonData,result) {
                         console.log("data is :" + result);
@@ -297,7 +327,10 @@
                             alert(result.message)
                             document.getElementById("resp-error").html = result.message;
                         }
-                    }
+                    },
+                    error: function (error) {
+                        alert(error);
+                    },
                 });
             }
     	})
