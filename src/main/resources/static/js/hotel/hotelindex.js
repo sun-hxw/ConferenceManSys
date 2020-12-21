@@ -394,9 +394,9 @@ function submitChange() {
         $.ajax({
             // async: false,
             type: "POST",
-            url: '/hotel/updateHotel',
+            url: domain+'/hotel/updateHotel',
             contentType: "application/json",
-            headers: { 'token': localStorage.getItem("conNCU") },
+            headers: { 'token': localStorage.getItem("token") },
             data: JSON.stringify({
                 "hotelName": $("#hotelName").val(),
                 "hotelLocation": $("#hotelLocation").val(),
@@ -413,7 +413,7 @@ function submitChange() {
                     location.reload();
                 } else {
                     alert("修改失败");
-                    location.reload();
+                    // location.reload();
                 }
             },
         });
