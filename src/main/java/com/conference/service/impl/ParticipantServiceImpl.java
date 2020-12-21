@@ -50,6 +50,6 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public Participant queryParticipantByParticipantPhone(String participantPhone) {
-        return null;
+        return participantDao.queryParticipantByParticipantPhone(participantPhone);
     }
 }

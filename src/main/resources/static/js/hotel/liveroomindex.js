@@ -12,7 +12,7 @@ function resetLiveRoom(liveTable){
         $.ajax({
             // async: false,
             type: "POST",
-            url: '/liveRoom/updateLiveRoom',
+            url: domain+'/liveRoom/updateLiveRoom',
             contentType: "application/json",
             // headers: { 'token': localStorage.getItem("conNCU") },
             data: JSON.stringify({
@@ -48,7 +48,7 @@ function deleteLiveRoomByAll(liveTable){
             headers: {
                 'token': token,
             },
-            url: "/liveRoom/deleteLiveRoomByAll",
+            url: domain+"/liveRoom/deleteLiveRoomByAll",
             type: "get",
             dataType: "json",
             data: {
@@ -77,7 +77,7 @@ function queryParticipantByParticipantId($participantId) {
         // headers: {
         //     'token': token,
         // },
-        url: "/participant/queryParticipantByParticipantId",
+        url: domain+"/participant/queryParticipantByParticipantId",
         type: "get",
         dataType: "json",
         data: {
@@ -103,7 +103,7 @@ function queryParticipantByParticipantPhone($participantPhone) {
         // headers: {
         //     'token': token,
         // },
-        url: "/participant/queryParticipantByParticipantPhone",
+        url: domain+"/participant/queryParticipantByParticipantPhone",
         type: "get",
         dataType: "json",
         data: {
@@ -112,8 +112,8 @@ function queryParticipantByParticipantPhone($participantPhone) {
         success: function (data) {
             console.log(data);
             if (data["code"] === 200) {
-                participant = data["data"]["queryParticipantByParticipantPhone"];
-                console.log(participant);
+                participant = data.data.queryParticipantByParticipantPhone;
+                console.log(JSON.stringify(participant));
             } else {
                 alert("获取用户数据失败");
             }

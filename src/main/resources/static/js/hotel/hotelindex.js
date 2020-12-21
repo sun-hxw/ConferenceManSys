@@ -6,11 +6,12 @@ var $participantId;
 var participant={};
 var $participantPhone;
 var $conferenceId;
+var domain = "http://localhost:8081";
 
 $(function () {
 
     //获取token
-    token = localStorage.getItem("conNCU");
+    token = localStorage.getItem("token");
     console.log(typeof (token));
     console.log(token);
     if (token == null || token == "null") {
@@ -62,14 +63,14 @@ function  findAllLiveRoomByHotelId(){
         headers: {
             'token': token,
         },
-        url: "/liveRoom/findAllLiveRoomByHotelId",
+        url: domain+"/liveRoom/findAllLiveRoomByHotelId",
         type: "get",
         dataType: "json",
         data: {
             'hotelId': $hotelId,
         },
         success: function (data) {
-            //console.log(data);
+            console.log(JSON.stringify(data));
             if (data["code"] === 200) {
                 liveRoom = data["data"]["findAllLiveRoomByHotelId"];
                 console.log(liveRoom);
@@ -158,7 +159,7 @@ function doLiveRoom(){
         "\n" +
         "                            <tbody>\n"
     for (let i of liveRoom) {
-        if (i.roomId==null){
+        if (i.roomId == null){
             $participantId=i.participantId;
             queryParticipantByParticipantId($participantId);
             $html +=
@@ -190,7 +191,7 @@ function updateLiveRoom(liveTable){
         $.ajax({
             // async: false,
             type: "POST",
-            url: '/liveRoom/updateLiveRoom',
+            url: domain+'/liveRoom/updateLiveRoom',
             contentType: "application/json",
            // headers: { 'token': localStorage.getItem("conNCU") },
             data: JSON.stringify({
@@ -223,7 +224,7 @@ function getHotelInfo($hotelId) {
         headers: {
             'token': token,
         },
-        url: "/hotel/getHotelInfo",
+        url: domain+"/hotel/getHotelInfo",
         type: "post",
         dataType: "json",
         data: {
