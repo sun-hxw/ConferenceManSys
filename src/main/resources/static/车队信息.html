@@ -138,26 +138,32 @@
                                         <div class="form-group">
                                             <label class="col-md-12">车队名</label>
                                             <div class="col-md-12">
-                                                <input type="text" class="form-control form-control-line" value="xx车队">
+                                                <input id="driverName" type="text" class="form-control form-control-line" value="xx车队">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12">电话号码</label>
                                             <div class="col-md-12">
-                                                <input type="text" class="form-control form-control-line" value="617846738437">
+                                                <input id="driverPhone" type="text" class="form-control form-control-line" value="617846738437">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">车牌号</label>
+                                            <div class="col-md-12">
+                                                <input id="carNumber" type="text" class="form-control form-control-line" value="">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12">密码</label>
                                             <div class="col-md-12">
-                                                <input type="password" value="password" class="form-control form-control-line">
+                                                <input id="driverPass" type="password" value="password" class="form-control form-control-line">
                                             </div>
                                         </div>
                                         <br/>
                                         <br/>
                                         <div class="form-group">
                                             <div class="col-sm-12 text-center" >
-                                                <button class="btn btn-info">更新</button>
+                                                <button id="update" class="btn btn-info">更新</button>
                                             </div>
                                         </div>
                                     </form>
@@ -206,5 +212,76 @@
 <script src="js/datatables.responsive.min.js"></script>
 <script src="js/jquery.toast.min.js"></script>
 <script src="js/dashboard-alpha.js"></script>
+
+<script>
+    $(function(){
+        let domain = "http://localhost:8081";
+        info();
+
+        // 车队信息
+        function info () {
+            $.ajax({
+                async: false,
+                type: "GET",
+                dataType: "json",
+                url: domain+'/driver/getDriverInfo',
+                contentType: "application/json",
+                headers: {
+                    'token': localStorage.getItem("token")
+                },
+                success: function (jsonData,result) {
+                    if ("success"==result) {
+                        console.log(jsonData.data.getDriverInfo);
+                        let info = jsonData.data.getDriverInfo;
+                        $("#driverName").val(info.driverName);
+                        $("#driverPass").val(info.driverPass);
+                        $("#driverPhone").val(info.driverPhone);
+                        $("#carNumber").val(info.carNumber);
+                    }else {
+                        alert(result.message)
+                        document.getElementById("resp-error").html = result.message;
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                },
+            });
+        }
+
+        $("#update").click(function(){
+            let driverName = $("#driverName").val();
+            let driverPass = $("#driverPass").val();
+            let driverPhone = $("#driverPhone").val();
+            let carNumber = $("#carNumber").val();
+            $.ajax({
+                async: false,
+                type: "POST",
+                dataType: "json",
+                url: domain+'/driver/updateDriver',
+                contentType: "application/json",
+                headers: {
+                    'token': localStorage.getItem("token")
+                },
+                data:JSON.stringify({
+                    "driverPhone": driverPhone,
+                    "driverName": driverName,
+                    "carNumber": carNumber,
+                    "driverPass": driverPass
+                }),
+                success: function (jsonData,result) {
+                    if ("success"==result) {
+                        console.log(jsonData);
+                    }else {
+                        alert(result.message)
+                        // document.getElementById("resp-error").html = result.message;
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                },
+            });
+        })
+    })
+</script>
 </body>
 </html>
