@@ -72,8 +72,8 @@ function  findAllLiveRoomByHotelId(){
         success: function (data) {
             console.log(JSON.stringify(data));
             if (data["code"] === 200) {
-                liveRoom = data["data"]["findAllLiveRoomByHotelId"];
-                console.log(liveRoom);
+                liveRoom = data.data.findAllLiveRoomByHotelId;
+                console.log("liveRoom="+JSON.stringify(liveRoom));
             } else {
                 alert("获取用户数据失败");
             }
@@ -106,6 +106,7 @@ function showLiveRoomTable(){
         "                            <tbody>\n"
     for (let i of liveRoom) {
         if (i.roomId!=null){
+            console.log("start"+i.hotelId)
             $participantId=i.participantId;
             queryParticipantByParticipantId($participantId);
             $html +=
