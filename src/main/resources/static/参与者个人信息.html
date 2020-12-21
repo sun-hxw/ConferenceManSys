@@ -107,9 +107,9 @@
             <!--page header start-->
             <div class="page-header">
                 <div class="row">
-        <!--            <div class="col-sm-6 text-left">-->
-        <!--                <h5>个人信息</h5>-->
-        <!--            </div>-->
+                    <div class="col-sm-6 text-left">
+                        <h5>个人信息</h5>
+                    </div>
                     <div class="col-sm-12 text-right">
                         <ol class="breadcrumb">
                             <li><a href="javascript: void(0);"><i class="fa fa-home"></i></a></li>
@@ -284,8 +284,9 @@
             });
         </script>
 <script type="text/javascript">
+    let domain = "http://localhost:8081";
     let participant;
-    let token = localStorage.getItem("xj");
+    let token = localStorage.getItem("token");
     let $participantId;
     $(function (){
 
@@ -391,11 +392,11 @@
                 request.setRequestHeader("token", token);
                 request.setRequestHeader("Content-Type","application/json");
             },
-            url: "/participant/updateParticipant",
+            url: domain+"/participant/updateParticipant",
             type: "post",
             //dataType: "application/json",
             async: false,
-            dataType:"text",
+            dataType:"json",
             data: JSON.stringify({
                 "participantName":""+participantName,
                 "participantJob":""+participantJob,
@@ -408,16 +409,11 @@
             }),
             success: function (jsonData, result) {
 
-                console.log("data is :" + result);
-                console.log(jsonData);
-                console.log(typeof (jsonData));
-                jsonData = JSON.parse(jsonData)
-                console.log(typeof (jsonData));
+                console.log(JSON.stringify(jsonData));
 
-                 console.log(jsonData['code']);
                 // alert("修改成功！");
                 // window.location.href = "参与者个人信息.html";
-                if (jsonData['code'] === 200) {
+                if (jsonData.code === 200) {
                     alert("修改成功！")
                     window.location.href = "参与者个人信息.html";
                 } else {
@@ -442,7 +438,7 @@
             headers: {
                 'token': token,
             },
-            url: "/participant/getParticipantInfo",
+            url: domain+"/participant/getParticipantInfo",
             type: "get",
             dataType: "json",
             data: {
@@ -451,7 +447,7 @@
             success: function (data) {
                 console.log(data);
                 if (data["code"] === 200) {
-                    participant = data["data"]["getParticipantInfo"];
+                    participant = data.data.getParticipantInfo;
                     console.log(participant);
                 } else {
                     alert("获取用户数据失败");
