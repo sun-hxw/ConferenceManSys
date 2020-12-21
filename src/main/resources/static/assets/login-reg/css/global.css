@@ -1,0 +1,28 @@
+div, p, h1, h2, h3, h4, h5, h6 {
+    margin: 10px 0;
+}
+.flex-base {
+    display: flex;
+    display: -webkit-flex;
+}
+.flex-row-center {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.flex-column-center {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.grid-base {
+    display: grid;
+}
+.card-box {
+    border-radius: 10px;
+    background-color: #fff;
+}

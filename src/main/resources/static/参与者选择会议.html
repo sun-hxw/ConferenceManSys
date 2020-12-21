@@ -45,6 +45,8 @@
     <link href="css/jquery.toast.min.css" rel="stylesheet">
     <!--template css-->
     <link href="css/style.css" rel="stylesheet">
+    <!--  全局公共样式  -->
+    <link rel="stylesheet" href="./assets/login-reg/css/global.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -105,11 +107,18 @@
             transition: display 0.5s ease-in-out;
             z-index: 99999;
         }
-
     </style>
 
     <![endif]-->
-
+    <style>
+        .info-grid {
+            grid-template-columns: repeat(auto-fit, minmax(265px, 265px));
+            grid-gap: 20px 20px;
+        }
+        .card-text {
+            padding: 0 10px;
+        }
+    </style>
     <script>
         let organizer;
         let domain = "http://localhost:8081";
@@ -145,28 +154,19 @@
 
                         var organizerUnit = organizer ? organizer.organizerUnit : "";
 
-                        listConference += '   <div class="col-lg-3" style = "margin: 0px 10px;">' +
-                            '                        <a href = "#">' +
-                            '                            <div class="items">' +
-                            '                                <img class="img-responsive" src="会务管理系统样式1/picture/conferenceImg.jpeg" />' +
-                            '                                <h4>'+ conferenceName +'</h4>' +
-                            '                                <p> <span class="iconfont icon-dizhi"></span> '+conferenceLocation+'</p>' +
-                            '                                <p> <span class="iconfont icon-shijian"></span>'+conferenceStart + '-' +conferenceEnd +'</p>' +
-                            '                                <p> <span class="iconfont icon-zhubandanwei"></span> '+organizerUnit+'</p>' +
-                            '                            </div>' +
-                            '                        </a>' +
-                            '                            <div class="form-group">' +
-                            '                                 <div class="col-sm-12 text-center" >' +
-                            '                                       <a type="submit" id="update"  class="btn btn-success">加入</a>' +
-                            '                                 </div>' +
-                            '                            </div>'+
-                            //'                        </a>' +
-                            '                   </div>'
+
+                        listConference +=
+                            '<div class="card-box">' +
+                            '    <div><img src="会务管理系统样式1/picture/conferenceImg.jpeg" style="width: 100%; height: 140px;"></div>' +
+                            '    <div class="card-text"><h4>'+ conferenceName +'</h4></div>' +
+                            '    <div class="card-text"><span class="iconfont icon-dizhi"></span>'+ conferenceLocation +'</div>' +
+                            '    <div class="card-text"><span class="iconfont icon-shijian"></span>'+ conferenceStart + '-' +conferenceEnd +'</div>' +
+                            '    <div class="card-text"><span class="iconfont icon-zhubandanwei"></span>'+ organizerUnit +'</div>' +
+                            '    <div class="card-text text-center"><a type="submit" class="btn btn-success">加入</a></div>' +
+                            '</div>';
                     }
                     $('#mainContent').html(listConference);
-                    if (data["code"] === 200) {
-                        alert("获取会议数据成功");
-                    } else {
+                    if (data["code"] !== 200) {
                         alert("获取数据失败1");
                     }
                 },
@@ -291,7 +291,7 @@
     <!--主体页面头部结束-->
 
     <!--页面主体内容部分开始-->
-    <div class="container" id = "mainContent">
+    <div class="container grid-base info-grid" id = "mainContent">
     </div>
     <!--页面主体内容部分结束-->
 
