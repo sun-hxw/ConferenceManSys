@@ -111,6 +111,7 @@
     <![endif]-->
 
     <script>
+        let domain = "http://localhost:8081";
             let participant ;
             let token
             let $participantId;
@@ -123,7 +124,7 @@
                 if ($(this).scrollTop() > 100)  $('.back-to-top').fadeIn('slow');
                 else $('.back-to-top').fadeOut('slow');
             })
-            token = localStorage.getItem("xj");
+            token = localStorage.getItem("token");
             console.log(typeof (token));
             console.log(token);
             if (token == null || token === "null" || token === "undefined") {
@@ -131,14 +132,14 @@
             } else {
                 $participantId = parseJwt(token).participantId;/*获取用户信息*/
                 console.log($participantId);
-                }
+            }
             $.ajax({
                 async: false,
-                url: "/joinConference/queryJoinedConference",
-                type: "get",
-                dataType: "text",
+                url: domain+"/joinConference/queryJoinedConference",
+                type: "GET",
+                dataType: "json",
                 data: {
-                    'participantId':""+$participantId
+                    'participantId':$participantId
                 },
                 success: function (data) {
                     // var listConference = "";
@@ -180,7 +181,7 @@
             var conferenceId = $conferenceId;
             $.ajax({
                 async: false,
-                url: "/conference/showConferenceById",
+                url: domain+"/conference/showConferenceById",
                 type: "get",
                 dataType: "text",
                 data: {
@@ -237,7 +238,7 @@
                 alert(conferenceId);
                 $.ajax({
                     async: false,
-                    url: "/joinConference/cancelAConference",
+                    url: domain+"/joinConference/cancelAConference",
                     type: "get",
                     dataType: "text",
                     data: {
@@ -268,7 +269,7 @@
 
                 $.ajax({
                     async: false,
-                    url: "/organizer/getOrganizerInfo",
+                    url: domain+"/organizer/getOrganizerInfo",
                     type: "get",
                     dataType: "text",
                     data: {
