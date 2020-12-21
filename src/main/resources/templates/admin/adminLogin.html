@@ -1,18 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>管理员登录界面</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Material Admin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <link rel="stylesheet" th:href="@{/assets/login-reg/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/assets/login-reg/css/style.default.css}" id="theme-stylesheet" />
 </head>
 <body>
-    <div>
-        <form th:action="@{/admin/adminLogin}" method = "post">
-            <p style = "color: red" th:text="${msg}" th:if="${msg != null}"></p>
-            <input type="text" placeholder="账号" name = "adminAccount"><br>
-            <input type="password" placeholder="密码" name = "adminPass"><br>
-            <input type="submit" value="提交">
-        </form>
-
+<div class="page login-page">
+    <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+            <div class="row">
+                <!-- Logo & Information Panel-->
+                <div class="col-lg-6">
+                    <div class="info d-flex align-items-center">
+                        <div class="content">
+                            <div class="logo">
+                                <h1>欢迎登录</h1>
+                            </div>
+                            <p>登录界面</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form Panel    -->
+                <div class="col-lg-6 bg-white">
+                    <div class="form d-flex align-items-center">
+                        <div class="content">
+                            <form  th:action="@{/admin/adminLogin}" method="post" class="form-validate" id="loginFrom">
+                                <div class="form-group">
+                                    <input id="adminAccount" type="text" name="adminAccount" required data-msg="请输入用户名" placeholder="账号" class="input-material">
+                                </div>
+                                <div class="form-group">
+                                    <input id="adminPass" type="password" name="adminPass" required data-msg="请输入密码" placeholder="密码" class="input-material">
+                                </div>
+                                <button id="login" type="submit" class="btn btn-primary">登录</button>
+                                <div style="margin-top: 40px;">
+                                    <p style = "color: red" th:text="${msg}" th:if="${msg != null}"></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+<!-- JavaScript files-->
+<script th:src="@{/assets/login-reg/js/jquery.min.js}"></script>
+<script th:src="@{/assets/login-reg/js/bootstrap.min.js}"></script>
+<!-- JavaScript files-->
+<script th:src="@{/assets/login-reg/vendor/jquery-validation/jquery.validate.min.js}"></script>
+<!-- Main File-->
+<script th:src="@{/assets/login-reg/js/front.js}"></script>
+<script>
+    $(function(){
+        /*登录*/
+        $("#login").click(function(){
+            console.log("12312312");
+            var adminAccount=$("#adminAccount").val();
+            var adminPass=$("#adminPass").val();
+            /*获取当前输入的账号密码*/
+            localStorage.setItem("adminAccount",adminAccount)
+            localStorage.setItem("adminPass",adminPass)
+        })
+
+    })
+</script>
 </body>
 </html>
