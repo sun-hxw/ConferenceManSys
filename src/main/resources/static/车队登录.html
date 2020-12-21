@@ -84,11 +84,11 @@
                 async: false,
                 type: "POST",
                 dataType: "json",
-                url: domain+'/driver/login',
+                url: domain+'/fleet/login',
                 contentType: "application/json",
                 data:JSON.stringify({
-                    "driverPhone": phone,
-                    "driverPass": pass
+                    "fleetPhone": phone,
+                    "fleetPass": pass
                 }),
                 success: function (jsonData,result) {
                     if ("success"==result) {

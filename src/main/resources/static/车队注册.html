@@ -47,10 +47,6 @@
 						<div class="invalid-feedback">姓名</div>
                     </div>
                     <div class="form-group">
-                        <input id="number" class="input-material" type="text" name="number" placeholder="车牌号" >
-                        <div class="invalid-feedback">车牌号</div>
-                    </div>
-                    <div class="form-group">
                         <input id="phone" class="input-material" type="text" name="phone" placeholder="电话号码" >
                         <div class="invalid-feedback">电话号码不正确</div>
                     </div>
@@ -136,19 +132,6 @@
                     flagName=false;
     			}
     		})
-            var flagNumber = false;
-            $("#number").blur(function(){
-                number=$("#number").val();
-    			if(number.length > 0){
-                    $("#number").removeClass("form-control is-invalid")
-                    $("#number").addClass("form-control is-valid");
-                    flagNumber=true;
-    			}else{
-                    $("#number").removeClass("form-control is-valid")
-                    $("#number").addClass("form-control is-invalid");
-                    flagNumber=false;
-    			}
-    		})
             var flagPhone = false;
     		$("#phone").blur(function(){
                 phone=$("#phone").val();
@@ -204,7 +187,7 @@
 
 
             $("#regbtn").click(function(){
-    			if(flagName && flagPhone && flagNumber && flagPass && flagRePass && flagCode){
+    			if(flagName && flagPhone && flagPass && flagRePass && flagCode){
                     register();
     			}else{
     				if(!flagName){
@@ -212,9 +195,6 @@
     				}
     				if(!flagPhone){
     					$("#phone").addClass("form-control is-invalid");
-    				}
-    				if(!flagNumber){
-    					$("#number").addClass("form-control is-invalid");
     				}
     				if(!flagPass){
     					$("#pass").addClass("form-control is-invalid");
@@ -231,19 +211,17 @@
             // 注册
             function register() {
                 let name =$("#name").val();
-                let number =$("#number").val();
                 let phone =$("#phone").val();
                 let pass =$("#pass").val();
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: domain+'/driver/register',
+                    url: domain+'/fleet/register',
                     contentType: "application/json",
                     data:JSON.stringify({
-                        "driverName": name,
-                        "carNumber": number,
-                        "driverPhone": phone,
-                        "driverPass": pass
+                        "fleetName": name,
+                        "fleetPhone": phone,
+                        "fleetPass": pass
                     }),
                     success: function (jsonData,result) {
                         console.log("jsonData is :" + JSON.stringify(jsonData));

@@ -138,25 +138,19 @@
                                         <div class="form-group">
                                             <label class="col-md-12">车队名</label>
                                             <div class="col-md-12">
-                                                <input id="driverName" type="text" class="form-control form-control-line" value="xx车队">
+                                                <input id="name" type="text" class="form-control form-control-line" value="xx车队">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12">电话号码</label>
                                             <div class="col-md-12">
-                                                <input id="driverPhone" type="text" class="form-control form-control-line" value="617846738437">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12">车牌号</label>
-                                            <div class="col-md-12">
-                                                <input id="carNumber" type="text" class="form-control form-control-line" value="">
+                                                <input id="phone" type="text" class="form-control form-control-line" value="617846738437">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12">密码</label>
                                             <div class="col-md-12">
-                                                <input id="driverPass" type="password" value="password" class="form-control form-control-line">
+                                                <input id="pass" type="password" value="password" class="form-control form-control-line">
                                             </div>
                                         </div>
                                         <br/>
@@ -224,19 +218,18 @@
                 async: false,
                 type: "GET",
                 dataType: "json",
-                url: domain+'/driver/getDriverInfo',
+                url: domain+'/fleet/getFleetInfo',
                 contentType: "application/json",
                 headers: {
                     'token': localStorage.getItem("token")
                 },
                 success: function (jsonData,result) {
                     if ("success"==result) {
-                        console.log(jsonData.data.getDriverInfo);
-                        let info = jsonData.data.getDriverInfo;
-                        $("#driverName").val(info.driverName);
-                        $("#driverPass").val(info.driverPass);
-                        $("#driverPhone").val(info.driverPhone);
-                        $("#carNumber").val(info.carNumber);
+                        console.log(jsonData.data.getFleetInfo);
+                        let info = jsonData.data.getFleetInfo;
+                        $("#name").val(info.fleetName);
+                        $("#pass").val(info.fleetPass);
+                        $("#phone").val(info.fleetPhone);
                     }else {
                         alert(result.message)
                         document.getElementById("resp-error").html = result.message;
@@ -249,24 +242,22 @@
         }
 
         $("#update").click(function(){
-            let driverName = $("#driverName").val();
-            let driverPass = $("#driverPass").val();
-            let driverPhone = $("#driverPhone").val();
-            let carNumber = $("#carNumber").val();
+            let name = $("#name").val();
+            let pass = $("#pass").val();
+            let phone = $("#phone").val();
             $.ajax({
                 async: false,
                 type: "POST",
                 dataType: "json",
-                url: domain+'/driver/updateDriver',
+                url: domain+'/fleet/updateFleet',
                 contentType: "application/json",
                 headers: {
                     'token': localStorage.getItem("token")
                 },
                 data:JSON.stringify({
-                    "driverPhone": driverPhone,
-                    "driverName": driverName,
-                    "carNumber": carNumber,
-                    "driverPass": driverPass
+                    "fleetName": name,
+                    "fleetPhone": phone,
+                    "fleetPass": pass
                 }),
                 success: function (jsonData,result) {
                     if ("success"==result) {
