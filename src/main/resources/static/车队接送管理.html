@@ -154,5 +154,132 @@
 <script src="js/datatables.responsive.min.js"></script>
 <script src="js/jquery.toast.min.js"></script>
 <script src="js/dashboard-alpha.js"></script>
+
+<script>
+    $(function(){
+        let domain = "http://localhost:8081";
+
+        // 添加接送
+        function addPickUp () {
+            let participantId =$("#userName").val();
+            let driverId =$("#userName").val();
+            let conferenceId =$("#userName").val();
+            let trainNumber =$("#userName").val();
+            let toTime =$("#userName").val();
+            let returnTime =$("#userName").val();
+            let isFinishPickup =$("#userName").val();
+            if (phone.length <= 0 || pass.length <= 0) {return false;}
+            $.ajax({
+                async: false,
+                type: "POST",
+                dataType: "json",
+                url: domain+'/pickUp/addPickUp',
+                contentType: "application/json",
+                data:JSON.stringify({
+                    "participantId": participantId,
+                    "driverId": driverId,
+                    "conferenceId": conferenceId,
+                    "trainNumber": trainNumber,
+                    "toTime": toTime,
+                    "returnTime": returnTime,
+                    "isFinishPickup": isFinishPickup
+                }),
+                success: function (jsonData,result) {
+                    if ("success"==result) {
+                        console.log(JSON.stringify(jsonData))
+                    }else {
+                        alert(result.message)
+                        document.getElementById("resp-error").html = result.message;
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                },
+            });
+        }
+
+        // 完成接送
+        function completePickUp () {
+            let pickUpId =$("#pickUpId").val();
+            if (phone.length <= 0 || pass.length <= 0) {return false;}
+            $.ajax({
+                async: false,
+                type: "GET",
+                dataType: "json",
+                url: domain+'/pickUp/completePickUp',
+                contentType: "application/json",
+                data: {
+                    "pickUpId": pickUpId
+                },
+                success: function (jsonData,result) {
+                    if ("success"==result) {
+                        console.log(JSON.stringify(jsonData))
+                    }else {
+                        alert(result.message)
+                        document.getElementById("resp-error").html = result.message;
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                },
+            });
+        }
+
+        // 删除接送
+        function deletePickUp () {
+            let pickUpId =$("#pickUpId").val();
+            if (phone.length <= 0 || pass.length <= 0) {return false;}
+            $.ajax({
+                async: false,
+                type: "GET",
+                dataType: "json",
+                url: domain+'/pickUp/deletePickUp',
+                contentType: "application/json",
+                data: {
+                    "pickUpId": pickUpId
+                },
+                success: function (jsonData,result) {
+                    if ("success"==result) {
+                        console.log(JSON.stringify(jsonData))
+                    }else {
+                        alert(result.message)
+                        document.getElementById("resp-error").html = result.message;
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                },
+            });
+        }
+
+        // 接送列表
+        function getAllPickUp () {
+            let fleetId =$("#fleetId").val();
+            if (phone.length <= 0 || pass.length <= 0) {return false;}
+            $.ajax({
+                async: false,
+                type: "GET",
+                dataType: "json",
+                url: domain+'/pickUp/getAllFleetPickUp',
+                contentType: "application/json",
+                data: {
+                    "fleetId": fleetId
+                },
+                success: function (jsonData,result) {
+                    if ("success"==result) {
+                        console.log(JSON.stringify(jsonData.data.getAllPickUp))
+                    }else {
+                        alert(result.message)
+                        document.getElementById("resp-error").html = result.message;
+                    }
+                },
+                error: function (error) {
+                    alert(error);
+                },
+            });
+        }
+    })
+</script>
+
 </body>
 </html>
