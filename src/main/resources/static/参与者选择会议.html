@@ -112,8 +112,8 @@
 
     <script>
         let organizer;
+        let domain = "http://localhost:8081";
         $(function (){
-            let domain = "http://localhost:8081";
             $(window).scroll(function() {
                 if ($(this).scrollTop() > 100)  $('.back-to-top').fadeIn('slow');
                 else $('.back-to-top').fadeOut('slow');
@@ -185,7 +185,7 @@
 
             $.ajax({
                 async: false,
-                url: "/organizer/getOrganizerInfo",
+                url: domain+"/organizer/getOrganizerInfo",
                 type: "get",
                 dataType: "text",
                 data: {
@@ -332,7 +332,6 @@
 <script src="js/float-custom.js"></script>
 <!--page script-->
 <script src="js/d3.min.js"></script>
-<script src="js/c3.min.js"></script>
 <!-- iCheck for radio and checkboxes -->
 <script src="js/icheck.min.js"></script>
 <!-- Datatables-->
