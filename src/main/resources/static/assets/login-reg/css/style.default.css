@@ -3496,3 +3496,18 @@ a > code {
   padding-bottom: 0.375rem;
   font-size: 125%;
 }
+.border-bottom.form-control {
+  background: transparent;
+  border: transparent;
+  border-bottom: 1px solid #bcbfc9;
+  border-radius: 0;
+  outline: 0!important;
+  box-shadow: none;
+  padding: 0px 0;
+  height: 46px;
+  -webkit-transition: linear .5s;
+  -moz-transition: linear .5s;
+  -ms-transition: linear .5s;
+  -o-transition: linear .5s;
+  transition: linear .5s;
+}

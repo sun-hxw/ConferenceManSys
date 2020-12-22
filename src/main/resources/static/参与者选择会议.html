@@ -112,8 +112,8 @@
     <link rel="stylesheet" href="./assets/login-reg/css/global.css">
     <style>
         .info-grid {
-            grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
-            grid-gap: 20px 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+            grid-gap: 20px 30px;
         }
         h4 {
             margin: 10px 0;
@@ -137,6 +137,9 @@
                 if ($(this).scrollTop() > 100)  $('.back-to-top').fadeIn('slow');
                 else $('.back-to-top').fadeOut('slow');
             });
+            initData();
+        })
+        function initData() {
             $.ajax({
                 async: false,
                 url: domain+"/conference/showConferences",
@@ -148,11 +151,9 @@
                 success: function (data) {
                     var listConference = "";
                     var conferences = data['data']['conferencesList'];
-
-                    // console.log(conferences);
                     for(var i = 0 ; i < conferences.length ; i ++ )
                     {
-                        // console.log(conferences[i]);
+                        var conferenceId = conferences[i].conferenceId;
                         var conferenceName = conferences[i].conferenceName;
                         var conferenceLocation = conferences[i].conferenceLocation;
                         var conferenceStart = conferences[i].conferenceStart;
@@ -172,7 +173,7 @@
                             '    <div class="card-text"><span class="iconfont icon-dizhi"></span>'+ conferenceLocation +'</div>' +
                             '    <div class="card-text"><span class="iconfont icon-shijian"></span>'+ conferenceStart + '-' +conferenceEnd +'</div>' +
                             '    <div class="card-text"><span class="iconfont icon-zhubandanwei"></span>'+ organizerUnit +'</div>' +
-                            '    <div class="card-text text-center"><a type="submit" class="btn btn-success">加入</a></div>' +
+                            '    <div class="card-text text-center"><a type="submit" class="btn btn-success" onclick="joinAConference('+ conferenceId +')">加入</a></div>' +
                             '</div>';
                     }
                     $('#mainContent').html(listConference);
@@ -184,8 +185,7 @@
                     alert("获取会议数据失败");
                 },
             });
-        })
-
+        }
 
         function getOrganizerInfo(organizerId) {
             $.ajax({
@@ -200,6 +200,26 @@
                 success: function (data) {
                     // console.log(data['data']['getOrganizerInfo'])
                     organizer = data['data']['getOrganizerInfo'];
+                },
+                error: function () {
+                    alert("获取用户数据失败2");
+                },
+            });
+        }
+        function joinAConference(conferenceId) {
+            $.ajax({
+                async: false,
+                url: domain+"/joinConference/joinAConference",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                data: {
+                    'conferenceId': Number(conferenceId),
+                },
+                success: function (data) {
+                    // console.log(data['data']['getOrganizerInfo'])
+                    alert("加入会议成功");
+                    initData();
                 },
                 error: function () {
                     alert("获取用户数据失败2");
@@ -297,7 +317,7 @@
     <!--主体页面头部结束-->
 
     <!--页面主体内容部分开始-->
-    <div class="container grid-base info-grid" id = "mainContent">
+    <div class="grid-base info-grid" id = "mainContent">
     </div>
     <!--页面主体内容部分结束-->
 
@@ -330,6 +350,6 @@
 <script src="js/jquery.datatables.min.js"></script>
 <script src="js/datatables.responsive.min.js"></script>
 <script src="js/jquery.toast.min.js"></script>
-<script src="js/dashboard-alpha.js"></script>
+<!--<script src="js/dashboard-alpha.js"></script>-->
 </body>
 </html>

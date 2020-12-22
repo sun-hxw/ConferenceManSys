@@ -69,7 +69,7 @@ $(document).ready(function () {
     // Universal Form Validation
     // ------------------------------------------------------ //
 
-    $('.form-validate').each(function() {  
+    $('.form-validate').each(function() {
         $(this).validate({
             errorElement: "div",
             errorClass: 'is-invalid',
@@ -174,3 +174,38 @@ $(document).ready(function () {
     });
 
 });
+
+function changeRoleLogin(value) {
+    let toLoginPage = "";
+    if (value === "participant") {
+        toLoginPage = "参与者登录.html";
+    } else if (value === "organizer") {
+        toLoginPage = "组织者登录.html";
+    } else if (value === "administrator") {
+        toLoginPage = "";
+    } else if (value === "driver") {
+        toLoginPage = "司机登录.html";
+    } else if (value === "hotel") {
+        toLoginPage = "酒店登录.html";
+    } else if (value === "car") {
+        toLoginPage = "车队登录.html";
+    }
+    window.location.href = toLoginPage;
+}
+function changeRoleRegister(value) {
+    let toRegisterPage = "";
+    if (value === "participant") {
+        toRegisterPage = "参与者注册.html";
+    } else if (value === "organizer") {
+        toRegisterPage = "组织者注册.html";
+    } else if (value === "administrator") {
+        toRegisterPage = "";
+    } else if (value === "driver") {
+        toRegisterPage = "司机注册.html";
+    } else if (value === "hotel") {
+        toRegisterPage = "酒店注册.html";
+    } else if (value === "car") {
+        toRegisterPage = "车队注册.html";
+    }
+    window.location.href = toRegisterPage;
+}
