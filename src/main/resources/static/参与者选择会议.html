@@ -213,9 +213,9 @@
                 type: "post",
                 dataType: "json",
                 contentType: "application/json",
-                data: {
+                data: JSON.stringify({
                     'conferenceId': Number(conferenceId),
-                },
+                }),
                 success: function (data) {
                     // console.log(data['data']['getOrganizerInfo'])
                     alert("加入会议成功");
