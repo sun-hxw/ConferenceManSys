@@ -72,7 +72,11 @@
           let domain = "http://localhost:8081";
     		/*登录*/
     		$("#login").click(function(){
+              if($("#loginFrom").validate({}).form()) {
                 login();
+              } else {
+                console.log("submit error with the form");
+              }
     		})
 
             // 登录

@@ -26,3 +26,6 @@
     border-radius: 10px;
     background-color: #fff;
 }
+.is-invalid.invalid-feedback {
+    color: #dc3545 !important;
+}
