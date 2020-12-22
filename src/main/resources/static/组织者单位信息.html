@@ -153,5 +153,24 @@
 <script src="js/datatables.responsive.min.js"></script>
 <script src="js/jquery.toast.min.js"></script>
 <script src="js/dashboard-alpha.js"></script>
+<script>var domain = "http://localhost:8081";
+    $(function() {
+        $.ajax({
+            async: false,
+            url: domain+"/organizer/getOrganizerInfo",
+            type: "get",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                if (data["code"] !== 200) {
+                    alert("获取数据失败1");
+                }
+            },
+            error: function () {
+                alert("获取会议数据失败");
+            },
+        });
+    });
+</script>
 </body>
 </html>
