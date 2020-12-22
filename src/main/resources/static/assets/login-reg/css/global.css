@@ -26,6 +26,6 @@
     border-radius: 10px;
     background-color: #fff;
 }
-.is-invalid.invalid-feedback {
+.is-invalid.invalid-feedback, .error {
     color: #dc3545 !important;
 }

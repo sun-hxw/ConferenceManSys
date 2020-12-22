@@ -240,48 +240,6 @@
         <script src="js/jQuery.style.switcher.js"></script>
         <script src="js/jquery.steps.min.js"></script>
         <script src="js/jquery.validate.min.js"></script>
-        <script src="./assets/login-reg/vendor/jquery-validation/jquery.validate.min.js"></script><!--表单验证-->
-
-        <script>
-
-            $("#example-basic").steps({
-                headerTag: "h3",
-                bodyTag: "section",
-
-                autoFocus: true
-            });
-            //steps with form
-            var form = $("#example-form");
-            form.validate({
-                errorPlacement: function errorPlacement(error, element) {
-                    element.before(error);
-                },
-                rules: {
-                    confirm: {
-                        equalTo: "#password"
-                    }
-                }
-            });
-            form.children("div").steps({
-                headerTag: "h3",
-                bodyTag: "section",
-                transitionEffect: "slideLeft",
-                onStepChanging: function (event, currentIndex, newIndex)
-                {
-                    form.validate().settings.ignore = ":disabled,:hidden";
-                    return form.valid();
-                },
-                onFinishing: function (event, currentIndex)
-                {
-                    form.validate().settings.ignore = ":disabled";
-                    return form.valid();
-                },
-                onFinished: function (event, currentIndex)
-                {
-                    alert("Submitted!");
-                }
-            });
-        </script>
 <script type="text/javascript">
     let domain = "http://localhost:8081";
     let participant;
@@ -289,6 +247,14 @@
     let $participantId;
     $(function (){
 
+        $("#update").click(function(){
+            if($("#validateForm").validate({}).form()) {
+                updateParticipantInfo();
+            } else {
+                console.log("submit error with the form");
+            }
+
+        })
         //token = localStorage.getItem("xj");
         console.log(typeof (token));
         console.log(token);
@@ -332,15 +298,6 @@
             }
             console.log(participant.participantSex)
         }
-
-        $("#update").click(function(){
-            if($("#validateForm").validate({}).form()) {
-                updateParticipantInfo();
-            } else {
-                console.log("submit error with the form");
-            }
-
-        })
 
     })
     // function onclickToInfo(){
