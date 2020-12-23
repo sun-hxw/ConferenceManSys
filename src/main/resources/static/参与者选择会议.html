@@ -153,6 +153,7 @@
                     var conferences = data['data']['conferencesList'];
                     for(var i = 0 ; i < conferences.length ; i ++ )
                     {
+                        var participantId = conferences[i].participantId;
                         var conferenceId = conferences[i].conferenceId;
                         var conferenceName = conferences[i].conferenceName;
                         var conferenceLocation = conferences[i].conferenceLocation;
@@ -172,8 +173,8 @@
                             '    <div class="card-text"><h4>'+ conferenceName +'</h4></div>' +
                             '    <div class="card-text"><span class="iconfont icon-dizhi"></span>'+ conferenceLocation +'</div>' +
                             '    <div class="card-text"><span class="iconfont icon-shijian"></span>'+ conferenceStart + '-' +conferenceEnd +'</div>' +
-                            '    <div class="card-text"><span class="iconfont icon-zhubandanwei"></span>'+ organizerUnit +'</div>' +
-                            '    <div class="card-text text-center"><a type="submit" class="btn btn-success" onclick="joinAConference('+ conferenceId +')">加入</a></div>' +
+                            '    <div class="card-text"><span class="iconfont icon-zhubandanwei"></span>'+ conferenceName +'</div>' +
+                            '    <div class="card-text text-center"><a type="submit" class="btn btn-success" onclick="joinAConference('+ conferenceId + ',' + participantId +')">加入</a></div>' +
                             '</div>';
                     }
                     $('#mainContent').html(listConference);
@@ -206,7 +207,7 @@
                 },
             });
         }
-        function joinAConference(conferenceId) {
+        function joinAConference(conferenceId, participantId) {
             $.ajax({
                 async: false,
                 url: domain+"/joinConference/joinAConference",
@@ -215,6 +216,7 @@
                 contentType: "application/json",
                 data: JSON.stringify({
                     'conferenceId': Number(conferenceId),
+                    'participantId': Number(participantId)
                 }),
                 success: function (data) {
                     // console.log(data['data']['getOrganizerInfo'])
