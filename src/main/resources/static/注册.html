@@ -1,193 +1,351 @@
-
-<!doctype html>
-<html  lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-	<!-- meta data -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-	<!--font-family-->
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&amp;subset=devanagari,latin-ext" rel="stylesheet">
-
-	<!-- title of site -->
-	<title>注册</title>
-
-	<!-- For favicon png -->
-	<link rel="shortcut icon" type="image/icon" href="assets/logo/favicon.png"/>
-
-	<!--font-awesome.min.css-->
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
-	<!--animate.css-->
-	<link rel="stylesheet" href="assets/css/animate.css">
-
-	<!--bootstrap.min.css-->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
-	<!-- bootsnav -->
-	<link rel="stylesheet" href="assets/css/bootsnav.css" >
-
-	<!--style.css-->
-	<link rel="stylesheet" href="assets/css/style.css">
-
-	<!--responsive.css-->
-	<link rel="stylesheet" href="assets/css/responsive.css">
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-
+	<title>Bootstrap Material Admin</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="robots" content="all,follow">
+	<!-- Bootstrap CSS-->
+	<link rel="stylesheet" href="./assets/login-reg/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+	<link rel="stylesheet" href="./assets/login-reg/css/style.default.css" id="theme-stylesheet">
+	<style type="text/css">
+		#textCode {
+			font-family: Arial;
+			font-style: italic;
+			font-weight: bold;
+			border: 0;
+			letter-spacing: 2px;
+			color: blue;
+		}
+	</style>
 </head>
-
 <body>
-<!--[if lte IE 9]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-<![endif]-->
-
-<!-- signin end -->
-<section class="signin signup ">
-	<div class="container">
-
-		<div class="sign-content popup-in-content">
-			<div class="popup-in-txt">
-				<h2>注 册</h2>
-
-				<div class="signin-form">
-					<div class=" ">
-						<div class=" ">
-							<form action="注册.html">
-								<div class="form-group">
-									<label for="signin_form"><span class="glyphicon glyphicon-user" style="color: rgb(140, 132, 251);"></span>  角色</label>
-									<select  class="form-control" id="signin_form" required>
-										<option value="participant">会议参加者</option>
-										<option value="organizer">会议组织者</option>
-										<option value="administrator">管理员</option>
-										<option value="driver">司机</option>
-										<option value="hotel">酒店</option>
-									</select>
+<div class="page login-page">
+	<div class="container d-flex align-items-center">
+		<div class="form-holder has-shadow">
+			<div class="row">
+				<!-- Logo & Information Panel-->
+				<div class="col-lg-6">
+					<div class="info d-flex align-items-center">
+						<div class="content">
+							<div class="logo">
+								<h1>欢迎注册</h1>
+							</div>
+							<p>会务参加者注册界面</p>
+						</div>
+					</div>
+				</div>
+				<!-- Form Panel    -->
+				<div class="col-lg-6 bg-white">
+					<div class="form d-flex align-items-center">
+						<div class="content">
+							<div class="form-group">
+								<select  class="border-bottom form-control" required onchange="changeRoleRegister(this.options[this.options.selectedIndex].value)" id="roleValue">
+									<option value="participant" selected>会议参加者</option>
+									<option value="organizer">会议组织者</option>
+									<option value="administrator">管理员</option>
+									<option value="driver">司机</option>
+									<option value="hotel">酒店</option>
+									<option value="car">车队</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<input id="name" class="input-material" type="text" name="name" placeholder="姓名" >
+								<div class="invalid-feedback">
+									姓名必填
 								</div>
-								<!--/.form-group -->
-								<div class="form-group">
-									<label for="signin_form"><span class="glyphicon glyphicon-envelope" style="color: rgb(140, 132, 251);"></span>  邮箱</label>
-									<input type="email" class="form-control" id="signin_form" placeholder="请输入邮箱">
-								</div><!--/.form-group -->
-								<div class="form-group">
-									<label for="signin_form"><span class="glyphicon glyphicon-phone" style="color: rgb(140, 132, 251);"></span>  手机号</label>
-									<input type="email" class="form-control" id="loginUserName" placeholder="请输入手机号">
-								</div><!--/.form-group -->
-								<div class="form-group">
-									<label for="signin_form"><span class="glyphicon glyphicon-lock" style="color: rgb(140, 132, 251);"></span>  密码</label>
-									<input type="password" class="form-control" id="signin_form" placeholder="请输入密码">
-								</div><!--/.form-group -->
-								<div class="form-group">
-									<label for="signin_form"><span class="glyphicon glyphicon-lock" style="color: rgb(140, 132, 251);"></span>  重复密码</label>
-									<input type="password" class="form-control" id="loginUserPassword" placeholder="请重复密码">
-								</div><!--/.form-group -->
-							</form><!--/form -->
-						</div><!--/.col -->
-					</div><!--/.row -->
+							</div>
+							<div class="form-group">
+								<input type="radio" name="optionsRadios" id="check1" value="教师" checked>
+								<label for="check1">教师&nbsp;&nbsp;</label>
+								<input type="radio" name="optionsRadios" id="check2" value="学生" >
+								<label for="check2">学生&nbsp;&nbsp;</label>
+								<input type="radio" name="optionsRadios" id="check3" value="其他" >
+								<label for="check3">其他&nbsp;&nbsp;</label>
+							</div>
+							<div class="form-group">
+								<input type="radio" name="sexRadios" id="sex1" value="男" checked>
+								<label for="sex1">男&nbsp;&nbsp;</label>
+								<input type="radio" name="sexRadios" id="sex2" value="女" >
+								<label for="sex2">女&nbsp;&nbsp;</label>
+							</div>
+							<div class="form-group">
+								<input id="workUnit" class="input-material" type="text" name="workUnit" placeholder="学校/工作单位" >
+								<div class="invalid-feedback">
+									学校工作单位必填
+								</div>
+							</div>
+							<div class="form-group">
+								<input id="phone" class="input-material" type="text" name="phone" placeholder="手机号码" >
+								<div class="invalid-feedback">
+									手机格式不正确
+								</div>
+							</div>
+							<div class="form-group">
+								<input id="email" class="input-material" type="text" name="email" placeholder="邮箱" >
+								<div class="invalid-feedback">
+									邮箱格式不正确
+								</div>
+							</div>
+							<div class="form-group">
+								<input id="idCard" class="input-material" type="text" name="idCard" placeholder="身份证号" >
+								<div class="invalid-feedback">
+									身份证必填
+								</div>
+							</div>
+							<div class="form-group">
+								<input id="pass" class="input-material" type="password" name="pass" placeholder="请输入密码"   >
+								<div class="invalid-feedback">
+									密码必填
+								</div>
+							</div>
+							<div class="form-group">
+								<input id="password" class="input-material" type="password" name="password" placeholder="确认密码"   >
+								<div class="invalid-feedback">
+									两次密码必须相同
+								</div>
+							</div>
+							<div class="form-group">
+								<input id="code" class="input-material" style="display: inline-block; width: calc(100% - 90px);" type="text" name="code" placeholder="验证码">
+								<input id="textCode" type="button" name="code" style="display: inline-block; width: 80px;">
+								<div class="invalid-feedback">
+									验证码不正确
+								</div>
+							</div>
+							<div class="form-group">
+								<button id="regbtn" type="button" name="registerSubmit" class="btn btn-primary">注册</button>
+								<small>已有账号?</small><a href="./参与者登录.html" class="signup">&nbsp;登录</a>
+							</div>
+							<div class="form-group">
+								<div id="resp-error" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- JavaScript files-->
+<script src="./assets/login-reg/js/jquery.min.js"></script>
+<script src="./assets/login-reg/js/bootstrap.min.js"></script>
+<script src="./assets/login-reg/js/front.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+<script>
+	$(function(){
+		let domain = "http://localhost:8081";
 
-				</div><!--/.signin-form -->
-				<!--						<div class="signin-password">-->
-				<!--							<div class="password-circle">-->
-				<!--								<div class="single-password-circle">-->
-				<!--									<input type="radio" id="radio01" name="radio">-->
-				<!--										<label for="radio01">-->
-				<!--											<span class="round-boarder">-->
-				<!--												<span class="round-boarder1"></span>-->
-				<!--											</span>remember password-->
-				<!--										</label>-->
-				<!--								</div>&lt;!&ndash;/.single-password-circle&ndash;&gt;-->
-				<!--&lt;!&ndash;								<div class="single-forgot-password-circle text-right&ndash;&gt;-->
-				<!--&lt;!&ndash;								">&ndash;&gt;-->
-				<!--&lt;!&ndash;									<a href="signin.html">Forgot email or password</a>&ndash;&gt;-->
-				<!--&lt;!&ndash;								</div>&lt;!&ndash;/.single-password-circle&ndash;&gt;&ndash;&gt;-->
-				<!--							</div>&lt;!&ndash;/.password-circle&ndash;&gt;-->
-				<!--						</div>&lt;!&ndash;/.signin-password &ndash;&gt;-->
+		// 验证码
+		createCode();
+		$("#textCode").click(function () {
+			createCode();
+		});
+		var codeText; //在全局定义验证码
+		function createCode() {
+			codeText = "";
+			var codeLength = 4; //验证码的长度
+			var checkCode = document.getElementById("textCode");
+			var random = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+				'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']; //随机数
+			for(var i = 0; i < codeLength; i++) { //循环操作
+				var index = Math.floor(Math.random() * 36); //取得随机数的索引（0~35）
+				codeText += random[index]; //根据索引取得随机数加到code上
+			}
+			checkCode.value = codeText; //把code值赋给验证码
+		}
 
-				<div class="signin-footer">
-					<button type="button" class="btn signin_btn signin_btn_two" id="submit">
-						注 册
-					</button>
-					<p>
-						已经拥有账号？
-						<a href="登录.html">登 录</a>
-					</p>
-				</div><!--/.signin-footer -->
-			</div><!-- .popup-in-txt -->
-		</div><!--/.sign-content -->
-	</div><!--/.container -->
-
-</section><!--/.signin -->
-
-<!-- signin end -->
-
-<!--footer copyright start -->
-<footer class="footer-copyright">
-	<div id="scroll-Top">
-		<i class="fa fa-angle-double-up return-to-top" id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
-	</div><!--/.scroll-Top-->
-
-</footer><!--/.hm-footer-copyright-->
-<!--footer copyright  end -->
-
-
-<!-- Include all js compiled plugins (below), or include individual files as needed -->
-
-<script src="assets/js/jquery.js"></script>
-
-<!--modernizr.min.js-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-
-<!--bootstrap.min.js-->
-<script src="assets/js/bootstrap.min.js"></script>
-
-<!-- bootsnav js -->
-<script src="assets/js/bootsnav.js"></script>
-
-<!-- jquery.sticky.js -->
-<script src="assets/js/jquery.sticky.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-
-
-<!--Custom JS-->
-<script src="assets/js/custom.js"></script>
-
-</body>
-<script type="text/javascript">
-	$("#submit").click(function(){
-		let hotelPhone = $("#loginUserName").val();
-		let hotelPass = $("#loginUserPassword").val();
-		$.ajax({
-			type: "POST",
-			dataType: "json",
-			url: 'http://localhost:8081/hotel/register',
-			contentType: "application/json",
-			data:JSON.stringify({
-				"hotelPhone": ""+hotelPhone,
-				"hotelPass": ""+hotelPass,
-				"hotelName": "前湖大宾馆",
-				"hotelLocation": "前湖",
-				"hotelInfo": "干就完了！"
-			}),
-			success: function (jsonData,result) {
-				console.log("data is :" + result);
-				if (jsonData["data"]["token"]) {
-					alert("注册成功");
-					window.location.href = "酒店主页面.html";
-				}else {
-					alert(result.message)
-				}
+		/*错误class  form-control is-invalid
+        正确class  form-control is-valid*/
+		/*验证用户名、密码、工作单位、性别、手机号、邮箱*/
+		var name,workUnit,phone,email,idCard,pass,password,code;
+		var flagName = false;
+		$("#name").blur(function(){
+			name=$("#name").val();
+			if(name.length > 0){
+				$("#name").removeClass("form-control is-invalid")
+				$("#name").addClass("form-control is-valid");
+				flagName=true;
+			}else{
+				$("#name").removeClass("form-control is-valid")
+				$("#name").addClass("form-control is-invalid");
+				flagName=false;
+			}
+		})
+		var flagWorkUnit = false;
+		$("#workUnit").blur(function(){
+			workUnit=$("#workUnit").val();
+			if(workUnit.length > 0){
+				$("#workUnit").removeClass("form-control is-invalid")
+				$("#workUnit").addClass("form-control is-valid");
+				flagWorkUnit=true;
+			}else{
+				$("#workUnit").removeClass("form-control is-valid")
+				$("#workUnit").addClass("form-control is-invalid");
+				flagWorkUnit=false;
+			}
+		})
+		/*验证确认密码 */
+		var flagPhone = false;
+		$("#phone").blur(function(){
+			phone=$("#phone").val();
+			if(phone.length === 11 && /^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(Number(phone))){
+				$("#phone").removeClass("form-control is-invalid")
+				$("#phone").addClass("form-control is-valid");
+				flagPhone=true;
+			}else{
+				$("#phone").removeClass("form-control is-valid")
+				$("#phone").addClass("form-control is-invalid");
+				flagPhone=false;
+			}
+		})
+		var flagEmail = false;
+		$("#email").blur(function(){
+			email=$("#email").val();
+			if(email.length > 0 && /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/.test(email)){
+				$("#email").removeClass("form-control is-invalid")
+				$("#email").addClass("form-control is-valid");
+				flagEmail=true;
+			}else{
+				$("#email").removeClass("form-control is-valid")
+				$("#email").addClass("form-control is-invalid");
+				flagEmail=false;
+			}
+		})
+		var flagIdCard = false;
+		$("#idCard").blur(function() {
+			idCard=$("#idCard").val();
+			if(idCard.length > 0){
+				$("#idCard").removeClass("form-control is-invalid")
+				$("#idCard").addClass("form-control is-valid");
+				flagIdCard=true;
+			}else{
+				$("#idCard").removeClass("form-control is-valid")
+				$("#idCard").addClass("form-control is-invalid");
+				flagIdCard=false;
 			}
 		});
+		var flagPass = false;
+		$("#pass").blur(function(){
+			pass=$("#pass").val();
+			if(pass.length > 0){
+				$("#pass").removeClass("form-control is-invalid")
+				$("#pass").addClass("form-control is-valid");
+				flagPass=true;
+			}else{
+				$("#pass").removeClass("form-control is-valid")
+				$("#pass").addClass("form-control is-invalid");
+				flagPass=false;
+			}
+		})
+		var flagRePass = false;
+		$("#password").blur(function(){
+			password=$("#password").val();
+			if(pass.length > 0 && password === pass){
+				$("#password").removeClass("form-control is-invalid")
+				$("#password").addClass("form-control is-valid");
+				flagRePass=true;
+			}else{
+				$("#password").removeClass("form-control is-valid")
+				$("#password").addClass("form-control is-invalid");
+				flagRePass=false;
+			}
+		})
+		var flagCode = false;
+		$("#code").blur(function() {
+			code=$("#code").val();
+			if(code.length > 0 && code.toUpperCase() === codeText){
+				$("#code").removeClass("form-control is-invalid")
+				$("#code").addClass("form-control is-valid");
+				flagCode=true;
+			}else{
+				$("#code").removeClass("form-control is-valid")
+				$("#code").addClass("form-control is-invalid");
+				flagCode=false;
+			}
+		});
+
+
+		$("#regbtn").click(function(){
+			if(flagName && flagWorkUnit && flagPhone && flagEmail && flagIdCard && flagPass && flagRePass && flagCode){
+				register();
+			}else{
+				if(!flagName){
+					$("#name").addClass("form-control is-invalid");
+				}
+				if(!flagWorkUnit){
+					$("#workUnit").addClass("form-control is-invalid");
+				}
+				if(!flagPhone){
+					$("#phone").addClass("form-control is-invalid");
+				}
+				if(!flagEmail){
+					$("#email").addClass("form-control is-invalid");
+				}
+				if(!flagPass){
+					$("#pass").addClass("form-control is-invalid");
+				}
+				if(!flagRePass){
+					$("#password").addClass("form-control is-invalid");
+				}
+				if(!flagCode){
+					$("#code").addClass("form-control is-invalid");
+				}
+				if(!flagIdCard){
+					$("#idCard").addClass("form-control is-invalid");
+				}
+			}
+		})
+
+		// 注册
+		function register() {
+			let name =$("#name").val();
+			let workUnit =$("#workUnit").val();
+			let job =$("input[name='optionsRadios']:checked").val();
+			let phone =$("#phone").val();
+			let email =$("#email").val();
+			let pass =$("#pass").val();
+			let sex =$("input[name='sexRadios']:checked").val();
+			let idCard =$("#idCard").val();
+			$.ajax({
+				type: "POST",
+				dataType: "json",
+				url: domain+'/participant/register',
+				contentType: "application/json",
+				data:JSON.stringify({
+					"participantName": ""+name,
+					"participantWorkUnit": workUnit,
+					"participantJob": ""+job,
+					"participantEmail": email,
+					"participantPass": pass,
+					"participantPhone": phone,
+					"participantSex": sex,
+					"participantIdCard": idCard
+				}),
+				success: function (jsonData,result) {
+					console.log("data is :" + result);
+					console.log("jsonData is :" + JSON.stringify(jsonData));
+					if ("success"==result) {
+						localStorage.setItem("token", jsonData.data.token);
+						window.location.href = "参与者主页面.html";
+					}else {
+						alert(result.message)
+						document.getElementById("resp-error").html = result.message;
+					}
+				},
+				error: function (error) {
+					alert(error);
+				},
+			});
+		}
 	})
 </script>
+</body>
 </html>
